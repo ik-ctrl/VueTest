@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleBackend.WebApi", "SimpleBackend.WebApi\SimpleBackend.WebApi.csproj", "{5C1F4666-F96D-4545-8688-50F2679364ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C1F4666-F96D-4545-8688-50F2679364ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C1F4666-F96D-4545-8688-50F2679364ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C1F4666-F96D-4545-8688-50F2679364ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C1F4666-F96D-4545-8688-50F2679364ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
