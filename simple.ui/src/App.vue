@@ -16,12 +16,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id':1 , 'task': 'тест 1' ,'confirm': false},
-            {'id':2 , 'task': 'тест 1' ,'confirm': false},
-            {'id':3 , 'task': 'тест 1' ,'confirm': false},
-            {'id':4 , 'task': 'тест 1' ,'confirm': false},
-            {'id':5 , 'task': 'тест 1' ,'confirm': false},
-            {'id':6 , 'task': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
           ]
         },
         {
@@ -29,12 +29,12 @@ export default {
           'title': 'Задание 2' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'task': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
           ]
         },
         {
@@ -42,12 +42,12 @@ export default {
           'title': 'Задание 3' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'task': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
           ]
         },
         {
@@ -55,12 +55,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'task': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'task': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
           ]
         },
         {
@@ -68,12 +68,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id':1 , 'task': 'тест 1' ,'confirm': false},
-            {'id':2 , 'task': 'тест 1' ,'confirm': false},
-            {'id':3 , 'task': 'тест 1' ,'confirm': false},
-            {'id':4 , 'task': 'тест 1' ,'confirm': false},
-            {'id':5 , 'task': 'тест 1' ,'confirm': false},
-            {'id':6 , 'task': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
           ]
         }
       ]
