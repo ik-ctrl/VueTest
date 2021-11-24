@@ -2,6 +2,7 @@
   <ul id="todo-list">
     <TodoItem v-for="todo of todos" :key="todo.id"
               v-bind:todo="todo"
+              v-on:removeTodo="removeTodo"
     />
   </ul>
 
@@ -18,6 +19,11 @@ export default {
     todos:{
       type:Object,
       required:true
+    }
+  },
+  methods:{
+    removeTodo(id){
+      this.$emit("removeTodo",id);
     }
   }
 }

@@ -1,7 +1,10 @@
 <template>
   <body  class="app-body">
   <div id="app">
-    <TasksList v-bind:tasks="tasks"></TasksList>
+    <TasksList v-bind:tasks="tasks"
+                v-on:removeTask="removeTask"
+                v-on:removeTodo="removeTodo"
+    ></TasksList>
   </div>
   </body>
 </template>
@@ -30,7 +33,8 @@ export default {
           'id': 2,
           'title': 'Задание 2' ,
           'confirm': false,
-          todos:[
+          todos:
+              [
             {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?' ,'confirm': false},
             {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
             {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
@@ -83,6 +87,17 @@ export default {
   },
   components:{
     TasksList,
+  },
+  methods:{
+    removeTask(taskId){
+      this.tasks=this.tasks.filter(i=>i.id!==taskId);
+    },
+    removeTodo(todoId){
+      console.log(todoId);
+      console.log(this.tasks.todos);
+      let todos=this.tasks.todos;
+      this.tasks.todos=todos.filter(i=>i.id!==todoId);
+    }
   }
 }
 

@@ -4,10 +4,13 @@
       <div class="task-menu">
         <strong class="menu-item-margin">{{index}}.</strong>
         <div class="menu-item-margin">{{task?.['title']}}</div>
-        <button class="menu-item-margin remove-button bg-darkred">X</button>
+        <button v-on:click.prevent="$emit('removeTask',task.id)"
+            class="menu-item-margin remove-button">X</button>
       </div>
       <div class="task-description">
-        <TodoList v-bind:todos="task.todos"/>
+        <TodoList v-bind:todos="task.todos"
+                  v-on:removeTodo="removeTodo"
+        />
       </div>
     </div>
   </li>
@@ -28,6 +31,11 @@ export default {
     index:{
       type: Number,
       required: true
+    }
+  },
+  methods:{
+    removeTodo(todoId){
+      this.$emit("removeTodo",todoId)
     }
   }
 }
