@@ -1,7 +1,9 @@
 <template>
+  <body  class="app-body">
   <div id="app">
-     <TasksList v-bind:tasks="tasks"></TasksList>
+    <TasksList v-bind:tasks="tasks"></TasksList>
   </div>
+  </body>
 </template>
 
 <script>
@@ -16,12 +18,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
+            {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
+            {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
+            {'id': 4 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
+            {'id': 5 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
+            {'id': 6 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. A aliquam, aut cumque dicta dignissimos distinctio dolor, doloremque ducimus eligendi eos exercitationem facere ipsum libero necessitatibus neque nulla numquam perferendis quae quas quod quos recusandae repellendus sapiente similique velit voluptatem voluptates. Beatae distinctio harum ipsam modi omnis quam sapiente voluptatem voluptatum!' ,'confirm': false},
           ]
         },
         {
@@ -29,12 +31,12 @@ export default {
           'title': 'Задание 2' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?' ,'confirm': false},
+            {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
+            {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
+            {'id': 4 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
+            {'id': 5 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
+            {'id': 6 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam placeat sunt velit vitae! Assumenda est in necessitatibus qui repellendus voluptas?','confirm': false},
           ]
         },
         {
@@ -42,12 +44,12 @@ export default {
           'title': 'Задание 3' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 4 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 5 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 6 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
           ]
         },
         {
@@ -55,12 +57,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 4 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 5 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 6 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
           ]
         },
         {
@@ -68,12 +70,12 @@ export default {
           'title': 'Задание 1' ,
           'confirm': false,
           todos:[
-            {'id': 1 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 2 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 3 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 4 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 5 , 'description': 'тест 1' ,'confirm': false},
-            {'id': 6 , 'description': 'тест 1' ,'confirm': false},
+            {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 2 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 3 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 4 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 5 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
+            {'id': 6 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
           ]
         }
       ]
@@ -87,6 +89,12 @@ export default {
 </script>
 
 <style>
+
+.app-body{
+  margin:0px;
+  padding: 0px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

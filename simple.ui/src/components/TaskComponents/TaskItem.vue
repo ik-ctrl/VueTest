@@ -4,9 +4,8 @@
       <div class="task-menu">
         <strong class="menu-item-margin">{{index}}.</strong>
         <div class="menu-item-margin">{{task?.['title']}}</div>
-        <button class="menu-item-margin remove-button">X</button>
+        <button class="menu-item-margin remove-button bg-darkred">X</button>
       </div>
-
       <div class="task-description">
         <TodoList v-bind:todos="task.todos"/>
       </div>
@@ -38,7 +37,6 @@ export default {
 .task-item {
   list-style-type: none;
 }
-
 .task-body{
   background: gray;
   display: block;
@@ -46,23 +44,17 @@ export default {
   border-radius: 1rem;
   padding: 10px;
 }
-
 .task-menu{
   display: flex;
 }
-
 .menu-item-margin{
   margin: 20px 10px 20px 10px;
 }
-
-.remove-button-location{
-
-}
-
 .remove-button{
   background: darkred;
   border-radius: 0.4rem;
-
+  border:0.1rem solid whitesmoke;
+  color: whitesmoke;
 }
 
 </style>
