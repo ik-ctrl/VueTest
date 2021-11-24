@@ -1,13 +1,14 @@
 <template>
   <div>
     <div class="view-title">Список задач</div>
-    <hr class="hr-separator">
+    <hr class="title-separator">
     <ul>
       <TaskItem v-for="(task, index) of tasks" :key="task.id"
                 v-bind:task="task"
                 v-bind:index="index+1"
       />
     </ul>
+
   </div>
 </template>
 
@@ -26,8 +27,10 @@ export default {
 </script>
 
 <style scoped>
-.hr-separator{
+.title-separator{
+  size: 1rem;
 }
-.view-title{
+.view-title {
+  font-size: 4rem;
 }
 </style>
