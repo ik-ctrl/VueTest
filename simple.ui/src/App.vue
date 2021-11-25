@@ -93,15 +93,12 @@ export default {
       this.tasks=this.tasks.filter(i=>i.id!==taskId);
     },
     removeTodo(todoId,taskId){
-
-      console.log('taskid:'+taskId);
-      console.log('todoid:'+todoId);
       let task= this.tasks.filter(task=>task.id==taskId)[0];
-      console.log(task);
-      console.log(task.todos[todoId]);
-      let filteredTodos= task.todos.filter(todo=>todo.id!=todoId);
-      console.log(filteredTodos);
-      this.tasks[taskId].todos=filteredTodos;
+      console.log(task.todos);
+      task.todos= task.todos.filter(todo=>todo.id!=todoId);
+      console.log(task.todos);
+      let itemIndex= this.tasks.indexOf(item=>item.id===task.id);
+      this.tasks[itemIndex]=task;
     }
   }
 }
