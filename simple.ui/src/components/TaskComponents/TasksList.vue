@@ -3,12 +3,19 @@
     <div class="view-title">Список задач</div>
     <hr class="title-separator">
     <ul class="list">
-      <TaskItem v-for="(task, index) of tasks" :key="task.id"
-                v-bind:task="task"
-                v-bind:index="index+1"
-                v-on:removeTask="removeTask"
-                v-on:removeTodo="removeTodo"
-      />
+      <div class="flex-table">
+        <div class="half-view">
+          <TaskEditor></TaskEditor>
+        </div>
+        <div class="half-view">
+          <TaskItem v-for="(task, index) of tasks" :key="task.id"
+                    v-bind:task="task"
+                    v-bind:index="index+1"
+                    v-on:removeTask="removeTask"
+                    v-on:removeTodo="removeTodo"
+          />
+        </div>
+      </div>
     </ul>
 
   </div>
@@ -16,9 +23,13 @@
 
 <script>
 import TaskItem from "./TaskItem";
+import TaskEditor from "./TaskEditor"
 export default {
   name: "TasksList",
-  components: {TaskItem},
+  components: {
+    TaskItem,
+    TaskEditor
+  },
   props:{
     tasks:{
       type: Object,
@@ -41,9 +52,14 @@ export default {
   size: 1rem;
 }
 
-.list{
-
+.flex-table{
+  display:inline-flex;
 }
+
+.half-view{
+  width: 50%;
+}
+
 
 .view-title {
   font-size: 4rem;

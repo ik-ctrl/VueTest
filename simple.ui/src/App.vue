@@ -86,7 +86,7 @@ export default {
     }
   },
   components:{
-    TasksList,
+    TasksList
   },
   methods:{
     removeTask(taskId){
