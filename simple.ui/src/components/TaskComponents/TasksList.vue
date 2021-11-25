@@ -29,8 +29,8 @@ export default {
     removeTask(taskId){
       this.$emit("removeTask",taskId);
     },
-    removeTodo(todoId){
-      this.$emit("removeTodo",todoId);
+    removeTodo(todoId,taskId){
+      this.$emit("removeTodo",todoId,taskId);
     }
   }
 }

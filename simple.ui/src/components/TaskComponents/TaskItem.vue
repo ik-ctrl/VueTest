@@ -35,7 +35,7 @@ export default {
   },
   methods:{
     removeTodo(todoId){
-      this.$emit("removeTodo",todoId)
+      this.$emit("removeTodo",todoId,this.task.id)
     }
   }
 }

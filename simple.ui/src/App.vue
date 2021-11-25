@@ -58,7 +58,7 @@ export default {
         },
         {
           'id':4 ,
-          'title': 'Задание 1' ,
+          'title': 'Задание 4' ,
           'confirm': false,
           todos:[
             {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
@@ -71,7 +71,7 @@ export default {
         },
         {
           'id': 5 ,
-          'title': 'Задание 1' ,
+          'title': 'Задание 5' ,
           'confirm': false,
           todos:[
             {'id': 1 , 'description': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto assumenda, blanditiis excepturi fugiat illo neque nostrum provident temporibus totam veritatis. A blanditiis enim fugiat nam vel! Assumenda aut commodi culpa possimus provident repellat vitae. At deleniti doloribus eum laudantium modi, nam unde voluptate. Asperiores, autem.' ,'confirm': false},
@@ -92,11 +92,16 @@ export default {
     removeTask(taskId){
       this.tasks=this.tasks.filter(i=>i.id!==taskId);
     },
-    removeTodo(todoId){
-      console.log(todoId);
-      console.log(this.tasks.todos);
-      let todos=this.tasks.todos;
-      this.tasks.todos=todos.filter(i=>i.id!==todoId);
+    removeTodo(todoId,taskId){
+
+      console.log('taskid:'+taskId);
+      console.log('todoid:'+todoId);
+      let task= this.tasks.filter(task=>task.id==taskId)[0];
+      console.log(task);
+      console.log(task.todos[todoId]);
+      let filteredTodos= task.todos.filter(todo=>todo.id!=todoId);
+      console.log(filteredTodos);
+      this.tasks[taskId].todos=filteredTodos;
     }
   }
 }
