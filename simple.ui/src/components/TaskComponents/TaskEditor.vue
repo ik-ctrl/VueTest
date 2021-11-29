@@ -5,22 +5,26 @@
       <div>Задача:</div>
       <input type="text" v-model="task.taskTitle"/>
     </div>
-    <TodoEditor v-for="todo in task.todos" :key="todo"
+    <TodoEdit v-for="(todo,index) in task.todos" :key="index"
                 v-bind:todo="todo"
-                v-on:addTodo="addTodo"></TodoEditor>
+                ></TodoEdit>
     <button>Добавить</button>
+    <TodoEmpty v-on:addTodo="addTodo"/>
   </div>
 </template>
 
 <script>
-import TodoEditor from "./TodoEditor"
+import TodoEdit from "./TodoEdit"
+import TodoEmpty from "./TodoEmpty"
 export default {
   name: "TaskEditor",
   components:{
-    TodoEditor
+    TodoEdit,
+    TodoEmpty
   },
   methods:{
     addTodo(description) {
+      console.log(description)
       const newTodo={
         id:Date.now(),
         description:description,
