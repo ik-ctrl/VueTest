@@ -1,9 +1,9 @@
 <template>
   <div>
     <input
-        v-bind:class="{input_disable:this.menuParameters.isDisableInput}"
-        v-bind:value="this.todo.description"
-        v-on:change.prevent="changeTodo"
+        v-bind:class="{input_disable:menuParameters.isDisableInput}"
+        v-on:change.prevent="changeTodoDescription(todo.id)"
+        v-model="tmpTodoDescription"
         type="text">
     <button v-on:click.prevent="changeInputClass">edit</button>
     <button>del</button>
@@ -18,19 +18,27 @@ export default {
       type:Object
     },
   },
+  created() {
+    this.tmpTodoDescription=this.todo.description;
+  },
   methods:{
     changeInputClass(){
       this.menuParameters.isDisableInput=!this.menuParameters.isDisableInput;
     },
-    changeTodo() {
-      console.log(this.todo.description);
+    changeTodoDescription(todoId) {
+      let newDesc= this.tmpTodoDescription.trim();
+      if(newDesc){
+       this.$emit("changeTodoDescription",todoId,newDesc);
+       this.menuParameters.isDisableInput=!this.menuParameters.isDisableInput;
+      }
     }
   },
   data () {
     return {
       menuParameters: {
         isDisableInput: true
-      }
+      },
+      tmpTodoDescription:""
     }
   },
 }

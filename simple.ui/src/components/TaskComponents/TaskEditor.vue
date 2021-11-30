@@ -7,7 +7,7 @@
     </div>
     <TodoEdit v-for="(todo,index) in task.todos" :key="index"
                 v-bind:todo="todo"
-                ></TodoEdit>
+                v-on:changeTodoDescription="changeTodoDescription"></TodoEdit>
     <button>Добавить</button>
     <TodoEmpty v-on:addTodo="addTodo"/>
   </div>
@@ -31,6 +31,14 @@ export default {
         confirm: false
       };
       this.task.todos.push(newTodo);
+    },
+    changeTodoDescription(todoId,newDescription){
+      console.log(todoId,newDescription);
+      let changedTodo= this.todos.filter(item=>item.id===todoId)[0];
+      changedTodo.description=newDescription;
+      let todoIndex=this.todos.indexOf(i=>i.id===todoId);
+      this.todos[todoIndex]=changedTodo;
+      console.log(this.todos[todoIndex]);
     }
   },
   data() {
