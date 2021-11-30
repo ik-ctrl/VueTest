@@ -6,20 +6,28 @@
         v-model="tmpTodoDescription"
         type="text">
     <button v-on:click.prevent="changeInputClass">edit</button>
-    <button>del</button>
+    <button v-on:click.prevent="deleteDescription(todo.id)">del</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "TodoEdit",
+  created() {
+    this.tmpTodoDescription=this.todo.description;
+  },
   props:{
     todo:{
       type:Object
     },
   },
-  created() {
-    this.tmpTodoDescription=this.todo.description;
+  data () {
+    return {
+      menuParameters: {
+        isDisableInput: true
+      },
+      tmpTodoDescription:""
+    }
   },
   methods:{
     changeInputClass(){
@@ -31,16 +39,13 @@ export default {
        this.$emit("changeTodoDescription",todoId,newDesc);
        this.menuParameters.isDisableInput=!this.menuParameters.isDisableInput;
       }
+    },
+    deleteDescription(todoId){
+      console.log(todoId);
+      this.$emit("deleteDescription",todoId)
     }
   },
-  data () {
-    return {
-      menuParameters: {
-        isDisableInput: true
-      },
-      tmpTodoDescription:""
-    }
-  },
+
 }
 </script>
 

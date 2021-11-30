@@ -13,6 +13,7 @@ export default {
       let description= this.todoDescription.trim();
       if(description){
         this.$emit("addTodo",description);
+        this.todoDescription="";
       }
     }
   },
