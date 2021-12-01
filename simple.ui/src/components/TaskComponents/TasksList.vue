@@ -5,7 +5,7 @@
     <ul class="list">
       <div class="flex-table">
         <div class="half-view">
-          <TaskEditor></TaskEditor>
+          <TaskEditor v-on:createTask="createNewTask"></TaskEditor>
         </div>
         <div class="half-view">
           <TaskItem v-for="(task, index) of tasks" :key="task.id"
@@ -37,6 +37,9 @@ export default {
     }
   },
   methods:{
+    createNewTask(newTask){
+      this.$emit('createTask',newTask);
+    },
     removeTask(taskId){
       this.$emit("removeTask",taskId);
     },
