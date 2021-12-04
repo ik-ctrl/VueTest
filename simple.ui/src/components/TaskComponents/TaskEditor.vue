@@ -10,18 +10,19 @@
                 v-bind:todo="todo"
                 v-on:changeTodoDescription="changeTodoDescription"
                 v-on:deleteDescription="deleteDescription"></TodoEdit>
-    <TodoEmpty v-on:addTodo="addTodo"/>
+    <div>
+      <input type="text" v-model="todoDescription">
+      <button v-on:click.prevent="createTodo">+</button>
+    </div>
   </div>
 </template>
 
 <script>
 import TodoEdit from "./TodoEdit"
-import TodoEmpty from "./TodoEmpty"
 export default {
   name: "TaskEditor",
   components:{
-    TodoEdit,
-    TodoEmpty
+    TodoEdit
   },
   methods:{
     createTask(){
@@ -32,15 +33,15 @@ export default {
           confirm: false,
           todos:this.taskTemplate.todos
         }
-        console.log(newTask);
         this.$emit('createTask',newTask);
+        this.clearTodoTemplate();
       }
     },
-    addTodo(description) {
-      console.log(description)
+    createTodo(){
+      console.log(this.todoDescription)
       const newTodo={
         id:Date.now(),
-        description:description,
+        description:this.todoDescription,
         confirm: false
       };
       this.taskTemplate.todos.push(newTodo);
@@ -56,16 +57,20 @@ export default {
       let todos= this.taskTemplate.todos;
       todos=todos.filter(i=>i.id!==todoId);
       this.taskTemplate.todos=todos;
+    },
+    clearTodoTemplate(){
+      this.todoDescription="";
+      this.taskTemplate.title="";
+      this.taskTemplate.todos= [];
     }
   },
   data() {
     return{
       taskTemplate:{
-        id:-1 ,
         title:'' ,
-        confirm: false,
         todos:[]
-      }
+      },
+      todoDescription:""
     }
   }
 }
