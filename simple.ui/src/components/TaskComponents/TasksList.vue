@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="task-list-component">
     <div class="view-title">Список задач</div>
     <hr class="title-separator">
     <ul class="list">
-      <div class="flex-table">
-        <div class="half-view">
+      <div class="task-table">
+        <div class="new-task-container">
           <TaskEditor v-on:createTask="createNewTask"></TaskEditor>
         </div>
-        <div class="half-view">
+        <div class="task-list-container">
           <TaskItem v-for="(task, index) of tasks" :key="task.id"
                     v-bind:task="task"
                     v-bind:index="index+1"
@@ -55,16 +55,28 @@ export default {
   size: 1rem;
 }
 
-.flex-table{
-  display:inline-flex;
+.task-table{
+  display:flex;
 }
 
-.half-view{
-  width: 50%;
+.new-task-container{
+  height: 40%;
+  margin: 1%;
 }
 
+.task-list-container{
+  margin: 1%;
+}
 
 .view-title {
   font-size: 4rem;
 }
+
+.hidden{
+  visibility: hidden;
+}
+
+
+
+
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div id="task-editor" class="task-editor">
     <strong>Описание задачи</strong>
-    <div>
-      <div>Задача:</div>
-      <input type="text" v-model="taskTemplate.title"/>
-      <button v-on:click.prevent="createTask">Добавить</button>
+    <div class="task-title">
+      <div >Задача:</div>
+      <input class="task-description" type="text" v-model="taskTemplate.title"/>
+      <button class="button" v-on:click.prevent="createTask">+</button>
     </div>
     <TodoEdit v-for="(todo,index) in taskTemplate.todos" :key="index"
                 v-bind:todo="todo"
@@ -77,11 +77,26 @@ export default {
 </script>
 
 <style scoped>
-.title-editor{
-  display: inline-flex;
+
+.task-title{
+  display: flex;
+}
+.task-description{
+
+}
+
+.button{
+  background: #2c3e50;
+  color: whitesmoke;
+  margin-left: 5px;
+  height: 20px;
+  width: 20px;
+  border-radius: 40%;
 }
 
 .task-editor{
   display: flow;
 }
+
+
 </style>
