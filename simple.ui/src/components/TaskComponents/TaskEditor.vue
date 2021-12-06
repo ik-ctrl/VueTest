@@ -4,7 +4,7 @@
     <div class="task-title">
       <div >Задача:</div>
       <input class="task-description" type="text" v-model="taskTemplate.title"/>
-      <button class="button-base" v-on:click.prevent="createTask">+</button>
+      <button class="simple-button bg-dark font-light " v-on:click.prevent="createTask">+</button>
     </div>
     <TodoEdit v-for="(todo,index) in taskTemplate.todos" :key="index"
                 v-bind:todo="todo"
@@ -12,7 +12,7 @@
                 v-on:deleteDescription="deleteDescription"></TodoEdit>
     <div>
       <input type="text" v-model="todoDescription">
-      <button  class="button-base" v-on:click.prevent="createTodo">+</button>
+      <button  class="simple-button bg-dark font-light" v-on:click.prevent="createTodo">+</button>
     </div>
   </div>
 </template>
@@ -71,7 +71,12 @@ export default {
     return{
       taskTemplate:{
         title:'' ,
-        todos:[]
+        todos:[
+          {
+            id:1,
+            description:"sdsdsdsd"
+          }
+        ]
       },
       todoDescription:""
     }
@@ -88,13 +93,19 @@ export default {
 
 }
 
-.button-base{
+::v-deep(.bg-dark){
   background: #2c3e50;
+}
+
+::v-deep(.font-light){
   color: whitesmoke;
+}
+
+::v-deep(.simple-button){
   margin-left: 0.5vh;
-  height: 1.5vh;
-  width: 1.5vw;
-  border-radius: 1vh;
+  height: 1.5rem;
+  width: 2rem;
+  border-radius: 0.4rem;
 }
 
 .task-editor{
