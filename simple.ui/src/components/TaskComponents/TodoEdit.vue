@@ -1,11 +1,12 @@
 <template>
   <div>
+    <button сlass="base-button">тест</button>
     <input
         v-bind:class="{input_disable:menuParameters.isDisableInput}"
         v-on:change.prevent="changeTodoDescription(todo.id)"
         v-model="tmpTodoDescription"
         type="text">
-    <button v-on:click.prevent="changeInputClass">edit</button>
+    <button class="base-button" v-on:click.prevent="changeInputClass">edit</button>
     <button v-on:click.prevent="deleteDescription(todo.id)">del</button>
   </div>
 </template>
