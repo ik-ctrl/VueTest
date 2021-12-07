@@ -17,7 +17,6 @@
         </div>
       </div>
     </ul>
-
   </div>
 </template>
 
@@ -60,13 +59,11 @@ export default {
 }
 
 .new-task-container{
-  flex:1 0 auto;
-  width: 50%;
-  margin: 1%;
+  min-width: 30rem;
+  margin: 1vw;
 }
 
 .task-list-container{
-  flex:1 1 auto;
   text-align: center;
   margin: 1%;
 }

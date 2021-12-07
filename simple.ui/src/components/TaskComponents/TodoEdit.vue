@@ -1,12 +1,21 @@
 <template>
-  <div>
-    <input
-        v-bind:class="{input_disable:menuParameters.isDisableInput}"
-        v-on:change.prevent="changeTodoDescription(todo.id)"
-        v-model="tmpTodoDescription"
-        type="text">
-    <button  class="simple-button bg-dark font-light" v-on:click.prevent="changeInputClass">edit</button>
-    <button  class="simple-button bg-dark font-light" v-on:click.prevent="deleteDescription(todo.id)">del</button>
+  <div class="row">
+    <textarea
+        class="description_size"
+              v-bind:class="{input_disable:menuParameters.isDisableInput}"
+              v-on:change.prevent="changeTodoDescription(todo.id)"
+              v-model="tmpTodoDescription">
+    </textarea>
+<!--    <input-->
+<!--        class="description_size"-->
+<!--        v-bind:class="{input_disable:menuParameters.isDisableInput}"-->
+<!--        v-on:change.prevent="changeTodoDescription(todo.id)"-->
+<!--        v-model="tmpTodoDescription"-->
+<!--        type="text">-->
+    <div class="button-control">
+      <button class="simple-button bg-dark font-light" v-on:click.prevent="changeInputClass">edit</button>
+      <button class="simple-button bg-dark font-light" v-on:click.prevent="deleteDescription(todo.id)">del</button>
+    </div>
   </div>
 </template>
 
@@ -50,8 +59,24 @@ export default {
 </script>
 
 <style scoped>
+
+.description_size{
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+  width:60%;
+  align-content:center;
+
+}
+
 .input_disable{
   pointer-events: none;
 }
 
+.button-control{
+  vertical-align: center;
+}
+
+.row{
+  display: flex;
+}
 </style>

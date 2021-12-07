@@ -1,5 +1,5 @@
 <template>
-  <div id="task-editor" class="task-editor">
+  <div id="editable-task" class="editable-task bg-pink">
     <strong>Описание задачи</strong>
     <div class="task-title">
       <div >Задача:</div>
@@ -90,19 +90,26 @@ export default {
   display: flex;
 }
 .task-description{
-
+  min-width: 10rem;
+  width:100%;
 }
 
+.editable-task{
+  min-width: 2rem;
+}
+
+.bg-pink{
+  background: pink;
+}
 ::v-deep(.bg-dark){
   background: #2c3e50;
 }
-
 ::v-deep(.font-light){
   color: whitesmoke;
 }
-
 ::v-deep(.simple-button){
-  margin-left: 0.5vh;
+  min-width: 2rem;
+  margin-left: 0.5rem;
   height: 1.5rem;
   width: 2rem;
   border-radius: 0.4rem;
