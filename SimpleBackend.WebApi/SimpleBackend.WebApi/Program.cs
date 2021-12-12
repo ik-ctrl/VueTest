@@ -35,7 +35,7 @@ namespace SimpleBackend.WebApi
         /// </summary>
         /// <param name="args">Параметры командной строки</param>
         /// <returns>Строитель приложения</returns>
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {

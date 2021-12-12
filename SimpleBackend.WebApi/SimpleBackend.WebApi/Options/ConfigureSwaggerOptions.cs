@@ -4,8 +4,10 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SimpleBackend.WebApi.Options
 {
-    
-    internal class ConfigureSwaggerOptions:IConfigureOptions<SwaggerGenOptions>
+    /// <summary>
+    /// Конфигуратор опций Swagger
+    /// </summary>
+    internal class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _provider;
 
@@ -13,7 +15,7 @@ namespace SimpleBackend.WebApi.Options
         {
             _provider = provider;
         }
-        
+
         public void Configure(SwaggerGenOptions options)
         {
             throw new System.NotImplementedException();

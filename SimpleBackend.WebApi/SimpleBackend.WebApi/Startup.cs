@@ -7,24 +7,27 @@ using Microsoft.OpenApi.Models;
 
 namespace SimpleBackend.WebApi
 {
+    /// <summary>
+    /// Класс запуска приложения
+    /// </summary>
     public class Startup
     {
         /// <summary>
-        /// 
+        /// Инициализация приложения
         /// </summary>
-        /// <param name="configuration"></param>
+        /// <param name="configuration">Конифигурация приложения</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         /// <summary>
-        /// 
+        ///Конфигурация приложения
         /// </summary>
         public IConfiguration Configuration { get; }
         
         /// <summary>
-        /// 
+        /// Конфигурация используемых сервисов
         /// </summary>
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
@@ -36,10 +39,10 @@ namespace SimpleBackend.WebApi
         }
         
         /// <summary>
-        /// 
+        /// Конфигурация конвейера обработки запроса
         /// </summary>
-        /// <param name="app"></param>
-        /// <param name="env"></param>
+        /// <param name="app">Конфигуратор приложения</param>
+        /// <param name="env">Окружение приложения</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
