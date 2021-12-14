@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimpleBackend.Database.Entities
 {
     /// <summary>
     /// Задача
     /// </summary>
+    [Comment("Основные задачи")]
     public class Todo
     {
         /// <summary>

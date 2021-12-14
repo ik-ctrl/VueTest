@@ -1,14 +1,22 @@
-﻿namespace SimpleBackend.Database.Entities
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SimpleBackend.Database.Entities
 {
     /// <summary>
     /// Подзадача
     /// </summary>
+    [Comment("Подзадачи главных задач")]
     public class SubTodo
     {
         /// <summary>
         /// Идентификатор подзадачи
         /// </summary>
         public uint SubTodoId { get; set; }
+        
+        /// <summary>
+        /// Индентификатор выданный  графической системой
+        /// </summary>
+        public int  UiId { get; set; }
         
         /// <summary>
         /// Описание задачи
@@ -26,7 +34,7 @@
         public uint TodoId { get; set; }
         
         /// <summary>
-        /// Навигационное свойство заданчи
+        /// Навигационное свойство задачи
         /// </summary>
         public Todo Todo { get; set; }
     }
