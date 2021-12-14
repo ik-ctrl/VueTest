@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using SimpleBackend.Database;
+using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -38,7 +40,6 @@ namespace SimpleBackend.WebApi
         {
             services.AddControllers();
             services.AddHealthChecks();
-            
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
