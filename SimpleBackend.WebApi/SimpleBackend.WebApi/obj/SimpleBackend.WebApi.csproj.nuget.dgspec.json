@@ -1,33 +1,35 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj": {}
+    "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj": {}
   },
   "projects": {
-    "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj": {
+    "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj",
+        "projectUniqueName": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj",
         "projectName": "SimpleBackend.Database",
-        "projectPath": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\obj\\",
+        "projectPath": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\dev\\git\\work\\Nuget": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "D:\\DEV\\LocalNugetPack": {},
+          "D:\\Fileshare\\Local_nuget_packages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.com/api/v4/groups/7493311/-/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -77,41 +79,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj": {
+    "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj",
+        "projectUniqueName": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj",
         "projectName": "SimpleBackend.WebApi",
-        "projectPath": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj",
-        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\obj\\",
+        "projectPath": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\SimpleBackend.WebApi.csproj",
+        "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+        "outputPath": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.WebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "D:\\dev\\git\\work\\Nuget": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "D:\\DEV\\LocalNugetPack": {},
+          "D:\\Fileshare\\Local_nuget_packages": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://gitlab.com/api/v4/groups/7493311/-/packages/nuget/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj": {
-                "projectPath": "D:\\dev\\git\\VueTest.git\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj"
+              "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj": {
+                "projectPath": "D:\\DEV\\VueTest\\SimpleBackend.WebApi\\SimpleBackend.Database\\SimpleBackend.Database.csproj"
               }
             }
           }
@@ -157,7 +161,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
