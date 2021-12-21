@@ -31,9 +31,14 @@
         public string Password { get; init; }
 
         /// <summary>
-        /// Время жизни подключения после закрытия
+        /// Время жизни idle подключения после если превышается минимальное допустимое значений подключений
         /// </summary>
         public uint ConnectionIdleLifetime { get; init; }
+
+        /// <summary>
+        /// Время ожидания перед отключением idle подключений
+        /// </summary>
+        public uint ConnectionPruningInterval { get; init; }
 
         /// <summary>
         /// Имя подключаемого приложения
@@ -44,7 +49,8 @@
         /// Формирования строки подключения к БД
         /// </summary>
         /// <returns>Строка подключения к БД</returns>
-        public string GetConnectionString()=> $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};" +
-                                              $"ConnectionIdleLifetime={ConnectionIdleLifetime};ApplicationName={AppName}";
+        public string GetConnectionString()=> $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};ApplicationName={AppName}" +
+                                              $"Connection Idle Lifetime={ConnectionIdleLifetime};ConnectionPruningInterval={ConnectionPruningInterval}";
+        // public string GetConnectionString() => $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};ApplicationName={AppName}";
     }
 }

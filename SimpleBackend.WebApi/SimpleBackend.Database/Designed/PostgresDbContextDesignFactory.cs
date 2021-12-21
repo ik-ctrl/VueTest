@@ -18,6 +18,7 @@ namespace SimpleBackend.Database.Designed
             {
                 AppName = "SimpleBacked.WebApi",
                 ConnectionIdleLifetime = 5,
+                ConnectionPruningInterval=10,
                 DatabaseName = "SimpleDB",
                 Host = "127.0.0.1",
                 Password = "postgres",
