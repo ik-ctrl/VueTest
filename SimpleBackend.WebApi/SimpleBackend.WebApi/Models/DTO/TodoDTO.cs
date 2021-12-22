@@ -1,45 +1,40 @@
 ﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 
-namespace SimpleBackend.Database.Entities
+namespace SimpleBackend.WebApi.Models.DTO
 {
     /// <summary>
-    /// Задача
+    /// Модель задачи 
     /// </summary>
-    [Comment("Основные задачи")]
-    public class Todo
+    public class TodoDTO
     {
         /// <summary>
         /// Инициализация
         /// </summary>
-        public Todo()
-        {
-            SubTodos = new HashSet<SubTodo>();
-        }
-        
+        public TodoDTO() => SubTodos = new List<SubTodoDTO>();
+
         /// <summary>
         /// Идентификатор задачи
         /// </summary>
-        public uint TodoId { get; set; }
-        
+        public uint TodoId { get; init; }
+
         /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
-        public int  UiId { get; set; }
-        
+        public int UiId { get; init; }
+
         /// <summary>
         /// Название задачи
         /// </summary>
-        public string Title { get; set; }
-        
+        public string Title { get; init; }
+
         /// <summary>
         /// Флаг выполнения задачи
         /// </summary>
-        public bool  Confirm { get; set; }
-        
+        public bool Confirm { get; init; }
+
         /// <summary>
         /// Список подзадач
         /// </summary>
-        public ICollection<SubTodo> SubTodos { get; set; }
+        public IEnumerable<SubTodoDTO> SubTodos { get; init; }
     }
 }

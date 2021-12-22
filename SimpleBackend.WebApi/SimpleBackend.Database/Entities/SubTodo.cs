@@ -14,7 +14,7 @@ namespace SimpleBackend.Database.Entities
         public uint SubTodoId { get; set; }
         
         /// <summary>
-        /// Индентификатор выданный  графической системой
+        /// Индентификатор выданный графической системой
         /// </summary>
         public int  UiId { get; set; }
         
