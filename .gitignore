@@ -37,4 +37,5 @@ Thumbs.db
 Desktop.ini
 .DS_Store
 *.WebApi.csproj.AssemblyReference.cache
-/obj
+**/obj
+.idea

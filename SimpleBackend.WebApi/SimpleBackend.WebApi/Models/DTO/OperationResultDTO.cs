@@ -1,6 +1,9 @@
 ﻿namespace SimpleBackend.WebApi.Models.DTO
 {
-    public class OperationResult
+    /// <summary>
+    /// Модель результата операции 
+    /// </summary>
+    public class OperationResultDTO
     {
         
     }
