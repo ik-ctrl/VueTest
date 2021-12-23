@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SimpleBackend.WebApi.Models.DTO;
 
 namespace SimpleBackend.WebApi.Controllers
 {
@@ -19,7 +21,7 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTodos()
         {
-            return await Task.Run(async () => Ok());
+            return await Task.Run( () => Ok());
         }
         
         /// <summary>
@@ -29,7 +31,7 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> AddTodo()
         {
-            return await Task.Run(async () => Ok());
+            return await Task.Run( () => Ok());
         }
         
         /// <summary>
@@ -39,7 +41,7 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateTodo()
         {
-            return await Task.Run(async () => Ok());
+            return await Task.Run( () => Ok());
         }
         
         /// <summary>
@@ -49,7 +51,7 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteTodo()
         {
-            return await Task.Run(async () => Ok());
+            return await Task.Run( () => Ok());
         }
         
     }

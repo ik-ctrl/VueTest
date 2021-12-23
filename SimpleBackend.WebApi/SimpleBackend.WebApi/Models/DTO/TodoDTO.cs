@@ -11,12 +11,7 @@ namespace SimpleBackend.WebApi.Models.DTO
         /// Инициализация
         /// </summary>
         public TodoDTO() => SubTodos = new List<SubTodoDTO>();
-
-        /// <summary>
-        /// Идентификатор задачи
-        /// </summary>
-        public uint TodoId { get; init; }
-
+        
         /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
