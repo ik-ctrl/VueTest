@@ -21,7 +21,7 @@ namespace SimpleBackend.WebApi
         /// <summary>
         /// Инициализация приложения
         /// </summary>
-        /// <param name="configuration">Конифигурация приложения</param>
+        /// <param name="configuration">Конфигурация приложения</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
