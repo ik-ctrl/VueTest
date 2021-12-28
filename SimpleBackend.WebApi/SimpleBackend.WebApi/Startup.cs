@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -5,9 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
 using SimpleBackend.Database;
-using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -39,7 +38,6 @@ namespace SimpleBackend.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddHealthChecks();
             services.AddApiVersioning(options =>
             {
                 options.ReportApiVersions = true;
@@ -51,6 +49,11 @@ namespace SimpleBackend.WebApi
             });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
+
+            var connection = ExtractConnectionString(Configuration);
+            services
+                .AddHealthChecks()
+                .AddNpgSql(connection.GetConnectionString());
         }
 
         /// <summary>
@@ -75,8 +78,24 @@ namespace SimpleBackend.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("health");
+                endpoints.MapHealthChecks("ApiHealth");
             });
         }
+
+        /// <summary>
+        /// Извлечение данных для подключения к БД
+        /// </summary>
+        /// <param name="appConfig">Конфигурация приложения</param>
+        /// <returns></returns>
+        private PostgresConnection ExtractConnectionString(IConfiguration appConfig)
+        {
+            var connectionData = new PostgresConnection()
+            {
+                AppName =  Assembly.GetExecutingAssembly().GetName().Name,
+            };
+            appConfig.GetSection(nameof(PostgresConnection)).Bind(connectionData);
+            return connectionData;
+        }
+        
     }
 }
