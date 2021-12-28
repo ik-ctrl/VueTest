@@ -20,12 +20,12 @@ namespace SimpleBackend.Database.Entities
         /// <summary>
         /// Идентификатор задачи
         /// </summary>
-        public uint TodoId { get; set; }
+        public int TodoId { get; set; }
         
         /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
-        public int  UiId { get; set; }
+        public int  UiKey { get; set; }
         
         /// <summary>
         /// Название задачи

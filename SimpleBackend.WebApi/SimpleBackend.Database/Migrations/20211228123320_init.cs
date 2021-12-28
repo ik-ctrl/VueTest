@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SimpleBackend.Database.Migrations
 {
@@ -10,7 +11,9 @@ namespace SimpleBackend.Database.Migrations
                 name: "Todos",
                 columns: table => new
                 {
-                    TodoId = table.Column<long>(type: "bigint", nullable: false),
+                    TodoId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UiKey = table.Column<int>(type: "integer", nullable: false),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Confirm = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -24,11 +27,12 @@ namespace SimpleBackend.Database.Migrations
                 name: "SubTodos",
                 columns: table => new
                 {
-                    SubTodoId = table.Column<long>(type: "bigint", nullable: false),
-                    UiId = table.Column<int>(type: "integer", nullable: false),
+                    SubTodoId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UiKey = table.Column<int>(type: "integer", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Confirm = table.Column<bool>(type: "boolean", nullable: false),
-                    TodoId = table.Column<long>(type: "bigint", nullable: false)
+                    TodoId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

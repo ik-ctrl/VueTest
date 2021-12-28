@@ -7,7 +7,7 @@ namespace SimpleBackend.Database
     /// <summary>
     /// Контекст базы данных
     /// </summary>
-    public class PostgresDbContext : DbContext, ICloneable
+    public class PostgresDbContext : DbContext
     {
         private readonly PostgresConnection _connection;
         
@@ -23,7 +23,7 @@ namespace SimpleBackend.Database
         /// Копирование контекста
         /// </summary>
         /// <returns>Копия текущего контекста</returns>
-        public object Clone()=>new PostgresDbContext(_connection);
+        public PostgresDbContext Clone()=>new PostgresDbContext(_connection);
 
         /// <summary>
         /// Сет основных задач
@@ -48,6 +48,8 @@ namespace SimpleBackend.Database
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Todo>().HasKey(t => t.TodoId);
+            modelBuilder.Entity<SubTodo>().HasKey(s => s.SubTodoId);
             modelBuilder.Entity<Todo>()
                 .HasMany(t => t.SubTodos)
                 .WithOne(s => s.Todo)

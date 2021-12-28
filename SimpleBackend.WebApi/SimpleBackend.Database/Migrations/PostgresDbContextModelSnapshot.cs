@@ -15,15 +15,15 @@ namespace SimpleBackend.Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.12")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("SimpleBackend.Database.Entities.SubTodo", b =>
                 {
-                    b.Property<long>("SubTodoId")
+                    b.Property<int>("SubTodoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<bool>("Confirm")
                         .HasColumnType("boolean");
@@ -31,10 +31,10 @@ namespace SimpleBackend.Database.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
-                    b.Property<long>("TodoId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("TodoId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("UiId")
+                    b.Property<int>("UiKey")
                         .HasColumnType("integer");
 
                     b.HasKey("SubTodoId");
@@ -49,16 +49,19 @@ namespace SimpleBackend.Database.Migrations
 
             modelBuilder.Entity("SimpleBackend.Database.Entities.Todo", b =>
                 {
-                    b.Property<long>("TodoId")
+                    b.Property<int>("TodoId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.None);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<bool>("Confirm")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
+
+                    b.Property<int>("UiKey")
+                        .HasColumnType("integer");
 
                     b.HasKey("TodoId");
 

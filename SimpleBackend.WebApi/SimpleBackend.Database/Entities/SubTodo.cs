@@ -11,12 +11,12 @@ namespace SimpleBackend.Database.Entities
         /// <summary>
         /// Идентификатор подзадачи
         /// </summary>
-        public uint SubTodoId { get; set; }
+        public int SubTodoId { get; set; }
         
         /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
-        public int  UiId { get; set; }
+        public int  UiKey { get; set; }
         
         /// <summary>
         /// Описание задачи
@@ -31,7 +31,7 @@ namespace SimpleBackend.Database.Entities
         /// <summary>
         /// Идентификатор задачи
         /// </summary>
-        public uint TodoId { get; set; }
+        public int TodoId { get; set; }
         
         /// <summary>
         /// Навигационное свойство задачи
