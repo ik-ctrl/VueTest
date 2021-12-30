@@ -9,7 +9,7 @@ using SimpleBackend.Database;
 namespace SimpleBackend.Database.Migrations
 {
     [DbContext(typeof(PostgresDbContext))]
-    [Migration("20211228123320_init")]
+    [Migration("20211230101506_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

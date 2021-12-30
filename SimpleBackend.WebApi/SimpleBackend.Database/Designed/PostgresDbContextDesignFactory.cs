@@ -16,9 +16,7 @@ namespace SimpleBackend.Database.Designed
         {
             var connection = new PostgresConnection()
             {
-                ConnectionIdleLifetime = 5,
-                ConnectionPruningInterval=10,
-                DatabaseName = "SimpleDB",
+                DatabaseName = "TestDb1",
                 Host = "127.0.0.1",
                 Password = "postgres",
                 Port = 5434,

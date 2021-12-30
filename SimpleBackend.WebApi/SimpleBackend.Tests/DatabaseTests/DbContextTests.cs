@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -15,15 +16,89 @@ namespace SimpleBackend.Tests.DatabaseTests
         private const string Password = "postgres";
         private const string DatabaseName = "TestDb1";
         private const string Host = "127.0.0.1";
-        private const string AppName = "DbContextTests";
         private const uint Port = 5434;
-        private const uint ConnectionIdleLifetime = 300;
-        private const uint ConnectionPruningInterval = 310;
         private PostgresConnection _connection;
         private PostgresDbContext _context;
+        
+        /// <summary>
+        /// Загрузка тестовых данных пустых задач
+        /// </summary>
+        /// <param name="todosCount">Количество сгенерированных задач</param>
+        /// <returns>Список загруженных задач</returns>
+        private IEnumerable<Todo> InsertOnlyTodosTestData(uint todosCount)
+        {
+            var randomizer = new Random(DateTime.Now.Millisecond);
+            var testSamples = new List<Todo>();
+            for (var i = 0; i < todosCount; i++)
+            {
+                var todo = new Todo()
+                {
+                    Confirm = false,
+                    Title = $"Todo {i}",
+                    UiKey = randomizer.Next(100, 200),
+                };
+                testSamples.Add(todo);
+            }
 
-        [OneTimeSetUp]
-        [Description("Инициализация подключения перед каждым тестом")]
+            using (var db = _context.Clone())
+            {
+                foreach (var sample in testSamples)
+                {
+                    db.Add(sample);
+                }
+
+                db.SaveChanges();
+            }
+            return testSamples;
+        }
+        
+        /// <summary>
+        /// Загрузка тестовых данных задач c подзадачами
+        /// </summary>
+        /// <param name="todosCount">Количество сгенерированных задач</param>
+        /// <param name="subTodosCount">Количество подзадач в задаче</param>
+        /// <returns>Список загруженных задач</returns>
+        private IEnumerable<Todo> InsertTodosWithSubTodosTestData(uint todosCount, uint subTodosCount)
+        {
+            var randomizer = new Random(DateTime.Now.Millisecond);
+            var testSamples = new List<Todo>();
+            for (var i = 0; i < todosCount; i++)
+            {
+                var todo = new Todo()
+                {
+                    Confirm = false,
+                    Title = $"Todo #{i}",
+                    UiKey = randomizer.Next(100, 200),
+                };
+
+                var subTodos = new List<SubTodo>();
+                for (int j = 0; j < subTodosCount; j++)
+                {
+                    subTodos.Add(new SubTodo()
+                    {
+                        Confirm = false,
+                        Description =$"SubTodos #{j}",
+                        Todo = todo,
+                        UiKey = randomizer.Next(400,500),
+                    });
+                }
+                todo.SubTodos = subTodos;
+                testSamples.Add(todo);
+            }
+
+            using (var db = _context.Clone())
+            {
+                foreach (var sample in testSamples)
+                {
+                    db.Add(sample);
+                }
+                db.SaveChanges();
+            }
+            return testSamples;
+        }
+        
+        [SetUp]
+       
         public void Init()
         {
             _connection = new PostgresConnection()
@@ -33,14 +108,16 @@ namespace SimpleBackend.Tests.DatabaseTests
                 Port = Port,
                 Username = Username,
                 DatabaseName = DatabaseName,
-                ConnectionIdleLifetime = ConnectionIdleLifetime,
-                ConnectionPruningInterval = ConnectionPruningInterval,
             };
             _context = new PostgresDbContext(_connection);
             _context.Database.Migrate();
+            var todos = _context.Todos.ToList();
+            _context.Todos.RemoveRange(todos);
+            _context.SaveChanges();
         }
 
-        [OneTimeTearDown]
+        [TearDown]
+        [Description("Очистка бд после  каждого теста")]
         public void Cleanup()
         {
             _connection = null;
@@ -51,46 +128,103 @@ namespace SimpleBackend.Tests.DatabaseTests
             _context = null;
         }
 
-
         [Test]
         [Description("Проверка формирования строки подключения")]
         public void CheckConnectionString_Test()
         {
-            var expectedConnection = $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};" +
-                                     $"Connection Idle Lifetime={ConnectionIdleLifetime};ConnectionPruningInterval={ConnectionPruningInterval}";
+            var expectedConnection = $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};";
             var usedConnection = _connection.GetConnectionString();
             Assert.AreEqual(expectedConnection, usedConnection);
         }
 
-
         [Test]
-        [Description("Тест на проверку задач")]
-        public void AddTodo_Test()
+        [Description("Тест на проверку добавление задач")]
+        public void AddOnlyTodo_Test()
         {
-            var randomizer = new Random(DateTime.Now.Millisecond);
-            using (var db = _context.Clone())
-            {
-                for (var i = 0; i < 5; i++)
-                {
-                    var todo = new Todo()
-                    {
-                        Confirm = false,
-                        Title = $"Todo {i}",
-                        UiKey = randomizer.Next(100 , 200),
-                    };
-                    db.Add(todo);
-                }
-                db.SaveChanges();
-            }
-
-            var expectedTodoCount = 5;
-            var currentTodoCount = 0;
+            const uint expectedTodoCount = 5;
+            InsertOnlyTodosTestData(expectedTodoCount);
+            int currentTodoCount;
             using (var db = _context.Clone())
             {
                 currentTodoCount = db.Todos.Count();
             }
+            Assert.AreEqual(expectedTodoCount, currentTodoCount);
+        }
+        
+        [Test]
+        [Description("Тест на проверку добавление задач")]
+        public void AddTodoWithSubTodos_Test()
+        {
+            const uint expectedTodoCount = 5;
+            const uint expectedSubTodosCount = 5;
+            InsertTodosWithSubTodosTestData(expectedTodoCount, expectedSubTodosCount);
+            int currentTodoCount;
+            int currentSubTodosCount;
+            using (var db = _context.Clone())
+            {
+                currentTodoCount = db.Todos.Count();
+                
+                currentSubTodosCount = db.Todos.Include(i=>i.SubTodos).ToList().Sum(todo => todo.SubTodos.Count);
+            }
+            Assert.AreEqual(expectedTodoCount, currentTodoCount);
+            Assert.AreEqual(expectedTodoCount*expectedSubTodosCount,currentSubTodosCount);
+        }
 
-            Assert.GreaterOrEqual(expectedTodoCount, currentTodoCount);
+        [Test]
+        [Description("Тест на внедерние подзадачи к уже созданной задаче")]
+        public void InjectSubTodoToEmptyTodo_Test()
+        {
+            int todoId;
+            InsertOnlyTodosTestData(5);
+            using (var db = _context.Clone())
+            {
+                var todo = db.Todos.First();
+                todoId = todo.TodoId;
+                var subTodos = new SubTodo()
+                {
+                    Confirm = false,
+                    Description = "Insert subTodo #1",
+                    TodoId = todo.TodoId,
+                    Todo = todo,
+                    UiKey = new Random(DateTime.Now.Millisecond).Next(500, 900),
+                };
+                db.SubTodos.Add(subTodos);
+                db.SaveChanges();
+            }
+
+            int currentSubTodosCount;
+            using (var db = _context.Clone())
+            {
+                var todo = db.Todos.Include(item=>item.SubTodos).First(item=>item.TodoId==todoId);
+                currentSubTodosCount = todo.SubTodos.Count;
+            }
+            Assert.AreEqual(1,currentSubTodosCount);
+        }
+
+        [Test]
+        [Description("Тест на удаление задач")]
+        public void RemoveTodo_Test()
+        {
+            const uint expectedTodoCount = 5;
+            const uint expectedSubTodoCount = 5;
+            InsertTodosWithSubTodosTestData(expectedTodoCount, expectedSubTodoCount);
+            
+            using (var db = _context.Clone())
+            {
+                var todo = db.Todos.First();
+                db.Todos.Remove(todo);
+                db.SaveChanges();
+            }
+
+            int currentTodosCount;
+            int currentSubTodosCount;
+            using (var db = _context.Clone())
+            {
+                currentTodosCount = db.Todos.Count();
+                currentSubTodosCount = db.SubTodos.Count();
+            }
+            Assert.AreEqual(expectedTodoCount-1,currentTodosCount);
+            Assert.AreEqual((expectedTodoCount*expectedSubTodoCount)-expectedSubTodoCount,currentSubTodosCount);
         }
     }
 }
