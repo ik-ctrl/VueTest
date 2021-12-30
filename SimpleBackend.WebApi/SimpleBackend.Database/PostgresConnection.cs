@@ -41,15 +41,10 @@
         public uint ConnectionPruningInterval { get; init; }
 
         /// <summary>
-        /// Имя подключаемого приложения
-        /// </summary>
-        public string AppName { get; init; }
-
-        /// <summary>
         /// Формирования строки подключения к БД
         /// </summary>
         /// <returns>Строка подключения к БД</returns>
-        public string GetConnectionString()=> $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};ApplicationName={AppName}" +
+        public string GetConnectionString()=> $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};" +
                                               $"Connection Idle Lifetime={ConnectionIdleLifetime};ConnectionPruningInterval={ConnectionPruningInterval}";
         // public string GetConnectionString() => $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};ApplicationName={AppName}";
     }

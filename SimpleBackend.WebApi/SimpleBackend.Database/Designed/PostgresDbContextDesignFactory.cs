@@ -16,7 +16,6 @@ namespace SimpleBackend.Database.Designed
         {
             var connection = new PostgresConnection()
             {
-                AppName = "SimpleBacked.WebApi",
                 ConnectionIdleLifetime = 5,
                 ConnectionPruningInterval=10,
                 DatabaseName = "SimpleDB",

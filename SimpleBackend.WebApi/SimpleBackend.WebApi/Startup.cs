@@ -89,10 +89,7 @@ namespace SimpleBackend.WebApi
         /// <returns></returns>
         private PostgresConnection ExtractConnectionString(IConfiguration appConfig)
         {
-            var connectionData = new PostgresConnection()
-            {
-                AppName =  Assembly.GetExecutingAssembly().GetName().Name,
-            };
+            var connectionData = new PostgresConnection();
             appConfig.GetSection(nameof(PostgresConnection)).Bind(connectionData);
             return connectionData;
         }

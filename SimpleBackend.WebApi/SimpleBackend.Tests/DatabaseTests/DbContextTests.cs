@@ -5,7 +5,7 @@ using NUnit.Framework;
 using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
 
-namespace SimpleBackend.Tests.ApiTests
+namespace SimpleBackend.Tests.DatabaseTests
 {
     [TestFixture]
     [Description("Проверка работы  контекста базы данных")]
@@ -29,7 +29,6 @@ namespace SimpleBackend.Tests.ApiTests
             _connection = new PostgresConnection()
             {
                 Password = Password,
-                AppName = AppName,
                 Host = Host,
                 Port = Port,
                 Username = Username,
@@ -57,7 +56,7 @@ namespace SimpleBackend.Tests.ApiTests
         [Description("Проверка формирования строки подключения")]
         public void CheckConnectionString_Test()
         {
-            var expectedConnection = $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};ApplicationName={AppName}" +
+            var expectedConnection = $"Host={Host};Port={Port};Username={Username};Password={Password};Database={DatabaseName};" +
                                      $"Connection Idle Lifetime={ConnectionIdleLifetime};ConnectionPruningInterval={ConnectionPruningInterval}";
             var usedConnection = _connection.GetConnectionString();
             Assert.AreEqual(expectedConnection, usedConnection);
