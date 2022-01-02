@@ -53,6 +53,9 @@ namespace SimpleBackend.WebApi.Controllers
         {
             return await Task.Run( () => Ok());
         }
-        
+
+        public async Task<IActionResult> DeleteSubTodos() => await Task.Run(() => Ok());
+
+
     }
 }
