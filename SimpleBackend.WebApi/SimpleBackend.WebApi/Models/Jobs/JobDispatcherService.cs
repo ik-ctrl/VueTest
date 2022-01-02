@@ -46,46 +46,19 @@ namespace SimpleBackend.WebApi.Models.Jobs
             }
         }
         
-        public bool CheckStatusJob() => true;
-
+        /// <summary>
+        /// Проверка статуса выполнения задачи
+        /// </summary>
+        /// <returns>Статус выполнения задачи</returns>
+        public bool CheckStatusJob()
+        {
+            return true;
+        }
         
+        /// <summary>
+        /// Результат выполнения задачи
+        /// </summary>
+        /// <returns>Результат выполнения Задачи</returns>
         public object GetResultJob() => true;
-        
-        //
-        // /// <summary>
-        // /// Запрос записанных задач
-        // /// </summary>
-        // /// <returns> Список записанных задач</returns>
-        // [HttpGet]
-        // public async Task<IActionResult> GetTodos()
-        // {
-        //     return await Task.Run( () => Ok());
-        // }
-        //
-        // /// <summary>
-        // /// Создание новой задачи
-        // /// </summary>
-        // /// <returns>Результат выполнения операции</returns>
-        // [HttpPost]
-        // public async Task<IActionResult> AddTodo()
-        // {
-        //     return await Task.Run( () => Ok());
-        // }
-        //
-        // /// <summary>
-        // /// Обновление определенной задачи
-        // /// </summary>
-        // /// <returns></returns>
-        // [HttpPost]
-        // public async Task<IActionResult> UpdateTodo()
-        // {
-        //     return await Task.Run( () => Ok());
-        // }
-        
-        
-        
-
-       
-
     }
 }

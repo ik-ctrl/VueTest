@@ -23,8 +23,7 @@ namespace SimpleBackend.WebApi.Models.Responses
         /// <param name="todos">Список задач</param>
         /// <param name="errorCode">Код ошибки</param>
         /// <param name="errorMessage"></param>
-        public TodosResponse(IEnumerable<TodoDTO> todos, ErrorCodeType errorCode, string errorMessage = "") : base(errorCode, errorMessage)
-            => Todos = todos;
+        public TodosResponse(IEnumerable<TodoDTO> todos, ErrorCodeType errorCode, string errorMessage = "") : base(errorCode, errorMessage) => Todos = todos;
 
         /// <summary>
         /// Список задач 
