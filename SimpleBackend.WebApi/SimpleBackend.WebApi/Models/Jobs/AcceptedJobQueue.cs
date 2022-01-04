@@ -31,6 +31,8 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <returns></returns>
         public void EnqueueJob(Job newJob)
         {
+            if (newJob == null)
+                throw new ArgumentNullException(nameof(newJob));
             _queue.Enqueue(newJob);
             _logger?.LogTrace($"AcceptedJobQueue::EnqueueJob::Работа добавлена в очередь:{newJob}");
         }
@@ -41,6 +43,12 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <returns>Первая задач из очереди</returns>
         public Job DequeueJob()
         {
+            if (IsEmpty)
+            {
+                _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Очередь пуста");
+                return null;
+            }
+       
             if (_queue.TryDequeue(out var result))
             {
                 _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Работа изъята успешно:{result}");
@@ -88,7 +96,8 @@ namespace SimpleBackend.WebApi.Models.Jobs
         {
             try
             {
-                _queue.Clear();
+                if(!IsEmpty)
+                    _queue.Clear();
                 _logger?.LogTrace($"AcceptedJobQueue::ClearQueue::Очередь очищена успешно");
             }
             catch (Exception e)
