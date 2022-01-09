@@ -2,6 +2,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -51,6 +52,10 @@ namespace SimpleBackend.WebApi
             services.AddSwaggerGen();
 
             var connection = ExtractConnectionString(Configuration);
+            services.AddDbContext<PostgresDbContext>(options =>
+            {
+                options.UseNpgsql(connection.GetConnectionString());
+            });
             services
                 .AddHealthChecks()
                 .AddNpgSql(connection.GetConnectionString());
