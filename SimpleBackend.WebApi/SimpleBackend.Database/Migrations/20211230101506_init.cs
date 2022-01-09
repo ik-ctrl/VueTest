@@ -3,8 +3,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SimpleBackend.Database.Migrations
 {
+    /// <summary>
+    /// Миграция инициализация контекста базы данных
+    /// </summary>
     public partial class init : Migration
     {
+        /// <summary>
+        /// Применить миграцию
+        /// </summary>
+        /// <param name="migrationBuilder">Конфигуратор миграции</param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -52,6 +59,10 @@ namespace SimpleBackend.Database.Migrations
                 column: "TodoId");
         }
 
+        /// <summary>
+        /// Откатить миграцию
+        /// </summary>
+        /// <param name="migrationBuilder">Конфигуратор миграций</param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

@@ -16,10 +16,10 @@ namespace SimpleBackend.Database.Designed
         {
             var connection = new PostgresConnection()
             {
-                DatabaseName = "TestDb1",
+                DatabaseName = "SimpleDB",
                 Host = "127.0.0.1",
                 Password = "postgres",
-                Port = 5434,
+                Port = 5432,
                 Username = "postgres"
             };
             return new PostgresDbContext(connection);
