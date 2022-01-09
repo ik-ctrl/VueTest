@@ -6,12 +6,12 @@ namespace SimpleBackend.WebApi.Models.Jobs
     /// <summary>
     /// Выполняемая работа
     /// </summary>
-    public sealed class Job
+    public sealed class Job:IGuided
     {
         /// <summary>
         /// Идентификатор работы
         /// </summary>
-        public Guid JobId { get; set; }
+        public Guid Id { get; set; }
         
         /// <summary>
         /// Тип выполняемой работы
@@ -32,6 +32,13 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// Вывод информации о работе
         /// </summary>
         /// <returns>Информации о работе</returns>
-        public override string ToString() => $"JobId:{JobId}-JobType:{Type}";
+        public override string ToString() => $"JobId:{Id}-JobType:{Type}";
+        
+        /// <summary>
+        /// Проверка на совпадение идентификаторов Guid
+        /// </summary>
+        /// <param name="id">Проверяемый идентификатор</param>
+        /// <returns>Результат проверки равенства идентификаторов</returns>
+        public bool CompareId(Guid id) => Id.Equals(id);
     }
 }

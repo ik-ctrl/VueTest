@@ -7,53 +7,54 @@ using SimpleBackend.WebApi.Models.Exceptions;
 namespace SimpleBackend.WebApi.Models.Jobs
 {
     /// <summary>
-    /// Очередь принятых в обработку задач
+    /// Очередь
     /// </summary>
-    public sealed class AcceptedJobQueue
+    public sealed class QueueWrapper<T> where T : class, IGuided
     {
         private readonly ILogger _logger;
-        private readonly ConcurrentQueue<Job> _queue;
+        private readonly ConcurrentQueue<T> _queue;
 
         /// <summary>
         /// Инициализация
         /// </summary>
         /// <param name="logger">Журнал логирования</param>
-        public AcceptedJobQueue(ILogger logger = null)
+        public QueueWrapper(ILogger logger = null)
         {
             _logger = logger;
-            _queue = new ConcurrentQueue<Job>();
+            _queue = new ConcurrentQueue<T>();
         }
 
         /// <summary>
         /// Добавление новой работы в список
         /// </summary>
-        /// <param name="newJob">Новая задача</param>
+        /// <param name="item">Новая задача</param>
         /// <returns></returns>
-        public void EnqueueJob(Job newJob)
+        public void Enqueue(T item)
         {
-            if (newJob == null)
-                throw new ArgumentNullException(nameof(newJob));
-            _queue.Enqueue(newJob);
-            _logger?.LogTrace($"AcceptedJobQueue::EnqueueJob::Работа добавлена в очередь:{newJob}");
+            if (item == null)
+                throw new ArgumentNullException(nameof(item));
+            _queue.Enqueue(item);
+            _logger?.LogTrace($"AcceptedJobQueue::EnqueueJob::Работа добавлена в очередь:{item}");
         }
 
         /// <summary>
         /// Запрос первой в очереди задачи на обработку
         /// </summary>
         /// <returns>Первая задач из очереди</returns>
-        public Job DequeueJob()
+        public T Dequeue()
         {
             if (IsEmpty)
             {
                 _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Очередь пуста");
                 return null;
             }
-       
+
             if (_queue.TryDequeue(out var result))
             {
                 _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Работа изъята успешно:{result}");
                 return result;
             }
+
             _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Работа не изъята");
             return null;
         }
@@ -65,8 +66,8 @@ namespace SimpleBackend.WebApi.Models.Jobs
         {
             get
             {
-                var result =_queue.IsEmpty;
-                _logger?.LogTrace($"AcceptedJobQueue::DequeueJob::Результат проверки на пустоту={result}");
+                var result = _queue.IsEmpty;
+                _logger?.LogTrace($"Результат проверки на пустоту={result}");
                 return result;
             }
         }
@@ -80,30 +81,31 @@ namespace SimpleBackend.WebApi.Models.Jobs
         {
             if (IsEmpty)
             {
-                _logger?.LogTrace("AcceptedJobQueue::CheckJob::Очередь пуста (результат false)");
+                _logger?.LogTrace("Очередь пуста (результат false)");
                 return false;
             }
-            var result=_queue.FirstOrDefault(job => job.JobId.Equals(id)) != null;
+
+            var result = _queue.FirstOrDefault(item => item.CompareId(id)) != null;
             _logger?.LogTrace($"AcceptedJobQueue::CheckJob::Результат проверки = {result}");
             return result;
         }
-        
+
         /// <summary>
         /// Очистка всей очереди
         /// </summary>
         /// <returns></returns>
-        public void  ClearQueue()
+        public void ClearQueue()
         {
             try
             {
-                if(!IsEmpty)
+                if (!IsEmpty)
                     _queue.Clear();
-                _logger?.LogTrace($"AcceptedJobQueue::ClearQueue::Очередь очищена успешно");
+                _logger?.LogTrace("Очередь очищена успешно");
             }
             catch (Exception e)
             {
                 var message = $"Не удалось очистить очередь.Причина: {e.Message}";
-                _logger?.LogTrace($"AcceptedJobQueue::ClearQueue::{message}");
+                _logger?.LogTrace($"{message}");
                 throw new AcceptingJobException(message, e);
             }
         }
