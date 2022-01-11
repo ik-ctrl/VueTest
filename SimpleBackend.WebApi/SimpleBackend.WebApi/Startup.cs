@@ -78,7 +78,6 @@ namespace SimpleBackend.WebApi
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimpleBackend.WebApi v1"));
-
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
@@ -91,7 +90,7 @@ namespace SimpleBackend.WebApi
         /// Извлечение данных для подключения к БД
         /// </summary>
         /// <param name="appConfig">Конфигурация приложения</param>
-        /// <returns></returns>
+        /// <returns>Данные для подключения к базе данных</returns>
         private PostgresConnection ExtractConnectionString(IConfiguration appConfig)
         {
             var connectionData = new PostgresConnection();
