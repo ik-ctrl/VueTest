@@ -1,4 +1,4 @@
-namespace SimpleBackend.WebApi.Models
+namespace SimpleBackend.WebApi.Models.Jobs.Queue
 {
     public class ResultJobQueue
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
+using SimpleBackend.WebApi.Models.Jobs.Queue;
 
 namespace SimpleBackend.WebApi.Models.Jobs
 {

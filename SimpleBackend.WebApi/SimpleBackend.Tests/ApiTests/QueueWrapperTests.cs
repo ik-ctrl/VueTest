@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using SimpleBackend.WebApi.Models.Jobs;
+using SimpleBackend.WebApi.Models.Jobs.Queue;
 using SimpleBackend.WebApi.Models.Worker;
 
 namespace SimpleBackend.Tests.ApiTests
@@ -13,7 +14,7 @@ namespace SimpleBackend.Tests.ApiTests
 
         [SetUp]
         [Description("Создание тестового объекта")]
-        public void Setup() => _queue = new QueueWrapper<Job> ();
+        public void Setup() => _queue = new AcceptedJobQueue();
 
         [TearDown]
         [Description("Очистка тестового объекта")]
@@ -157,7 +158,7 @@ namespace SimpleBackend.Tests.ApiTests
         {
             _queue.Enqueue(new Job()
             {
-                Id  = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodo,
                 JobObject = new object()
@@ -165,7 +166,7 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id  = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodo,
                 JobObject = new object()
@@ -180,7 +181,7 @@ namespace SimpleBackend.Tests.ApiTests
             });
             _queue.Enqueue(new Job()
             {
-                Id  = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodo,
                 JobObject = new object()

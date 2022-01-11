@@ -4,12 +4,12 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.WebApi.Models.Exceptions;
 
-namespace SimpleBackend.WebApi.Models.Jobs
+namespace SimpleBackend.WebApi.Models.Jobs.Queue
 {
     /// <summary>
     /// Очередь
     /// </summary>
-    public sealed class QueueWrapper<T> where T : class, IGuided
+    public abstract class QueueWrapper<T> where T : class, IGuided
     {
         private readonly ILogger _logger;
         private readonly ConcurrentQueue<T> _queue;
