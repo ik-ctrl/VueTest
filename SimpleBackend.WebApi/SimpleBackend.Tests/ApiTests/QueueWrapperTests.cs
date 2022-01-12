@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 using SimpleBackend.WebApi.Models.Jobs;
-using SimpleBackend.WebApi.Models.Jobs.Queue;
+using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Worker;
 
 namespace SimpleBackend.Tests.ApiTests

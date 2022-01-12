@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.WebApi.Models.Exceptions;
 
-namespace SimpleBackend.WebApi.Models.Jobs.Queue
+namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {
     /// <summary>
     /// Очередь

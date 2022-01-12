@@ -1,4 +1,4 @@
-namespace SimpleBackend.WebApi.Models.Jobs.Queue
+namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {
     /// <summary>
     /// Очередь принятых в работу задач

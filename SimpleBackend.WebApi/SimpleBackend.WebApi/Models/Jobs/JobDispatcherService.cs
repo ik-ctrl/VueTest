@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using SimpleBackend.WebApi.Models.Jobs.Queue;
+using SimpleBackend.WebApi.Models.Jobs.Storage;
 
 namespace SimpleBackend.WebApi.Models.Jobs
 {
