@@ -2,12 +2,11 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using SimpleBackend.WebApi.Models.Exceptions;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {
     /// <summary>
-    /// Очередь
+    /// Обертка очереди
     /// </summary>
     public abstract class QueueWrapper<T> where T : class, IGuided
     {
@@ -106,7 +105,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
             {
                 var message = $"Не удалось очистить очередь.Причина: {e.Message}";
                 _logger?.LogTrace($"{message}");
-                throw new AcceptingJobException(message, e);
+                throw new Exception(message, e);
             }
         }
     }
