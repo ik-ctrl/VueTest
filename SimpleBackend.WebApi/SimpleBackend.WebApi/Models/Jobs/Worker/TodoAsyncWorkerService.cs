@@ -13,7 +13,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
     /// <summary>
     /// Сервис  обработки с связанный задачами
     /// </summary>
-    internal sealed class TodoWorkerService
+    internal sealed class TodoAsyncWorkerService
     {
         private readonly PostgresDbContext _context;
 
@@ -21,7 +21,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// Инициализация сервиса
         /// </summary>
         /// <param name="context">Контекст БД</param>
-        public TodoWorkerService(PostgresDbContext context)
+        public TodoAsyncWorkerService(PostgresDbContext context)
             => _context = context ?? throw new ArgumentNullException(nameof(context));
 
         // AddTodo = 1,
@@ -31,7 +31,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         // AddSubTodos=5,
         // RemoveSubTodos=6,
         // UpdateSubTodos=7,
-        
+
         /// <summary>
         /// Асинхронная обработка запроса на получения всех задач
         /// </summary>
@@ -46,12 +46,13 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             if (jobUnit.Type != JobType.GetAllTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(GetAllTodos):{jobUnit.Type}");
-            
+
             IEnumerable<Todo> todos;
             using (var db = _context.Clone())
             {
                 todos = await db.Todos.Include(t => t.SubTodos).ToListAsync();
             }
+
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -62,9 +63,39 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         }
 
 
-        public JobResult AddTodo()
+        /// <summary>
+        /// Добавление новых задач
+        /// </summary>
+        /// <param name="jobUnit">Единица работы</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException">jobUnit == null</exception>
+        /// <exception cref="Exception">jobUnit.Type != JobType.AddTodo</exception>
+        /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable (Todo) todos</exception>
+        public async Task<JobResult> AddTodosAsync(Job jobUnit)
         {
-            return null;
+            if (jobUnit == null)
+                throw new ArgumentNullException(nameof(jobUnit));
+
+            if (jobUnit.Type != JobType.AddTodo)
+                throw new Exception($"Некорректный тип работы для данного метода(AddTodoAsync):{jobUnit.Type}");
+
+            if (jobUnit.JobObject is not IEnumerable<Todo> todos) 
+                throw new Exception("AddTodoAsync::Не удалось преобразовать jobUnit.JobObject");
+            
+            using (var db = _context.Clone())
+            {
+                await db.AddRangeAsync(todos);
+                await db.SaveChangesAsync();
+            }
+
+            return new JobResult()
+            {
+                Id = jobUnit.Id,
+                IsSuccess = true,
+                Message = string.Empty,
+                ResultObject = todos
+            };
+
         }
 
 
