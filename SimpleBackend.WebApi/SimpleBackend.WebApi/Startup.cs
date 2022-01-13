@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using SimpleBackend.Database;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
+using SimpleBackend.WebApi.Models.Jobs.Worker;
 using SimpleBackend.WebApi.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 

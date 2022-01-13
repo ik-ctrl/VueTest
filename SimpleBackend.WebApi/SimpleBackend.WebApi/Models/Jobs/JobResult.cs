@@ -13,6 +13,11 @@ namespace SimpleBackend.WebApi.Models.Jobs
         public Guid Id { get; set; }
         
         /// <summary>
+        /// Флаг успешного выполнения задачи
+        /// </summary>
+        public bool IsSuccess { get; set; }
+        
+        /// <summary>
         /// Сообщение задачи
         /// </summary>
         public string Message { get; set; }

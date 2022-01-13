@@ -5,12 +5,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 
-namespace SimpleBackend.WebApi.Models.Jobs
+namespace SimpleBackend.WebApi.Models.Jobs.Worker
 {
     /// <summary>
     /// Сервис по обработки заданной работы 
     /// </summary>
-    public sealed class WorkerHostedService:IHostedService
+    internal sealed class WorkerHostedService:IHostedService
     {
         private Timer _timer;
         private readonly ILogger _logger;
@@ -20,12 +20,16 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <summary>
         /// Инициализация
         /// </summary>
+        /// <param name="acceptedQueue">Очередь принятых задач</param>
+        /// <param name="resultQueue">Очередь выполненых задач</param>
         /// <param name="logger">Журнал логирования</param>
+        /// <exception cref="ArgumentNullException">acceptedQueue==null</exception>
+        /// <exception cref="ArgumentNullException">resultQueue==null</exception>
         public WorkerHostedService(AcceptedJobQueue acceptedQueue,ResultJobQueue resultQueue,ILogger logger=null)
         {
+            _acceptedQueue = acceptedQueue?? throw  new ArgumentNullException(nameof(acceptedQueue));
+            _resultQueue = resultQueue?? throw  new ArgumentNullException(nameof(resultQueue));
             _logger = logger;
-            _acceptedQueue = acceptedQueue;
-            _resultQueue = resultQueue;
         }
 
         /// <summary>
@@ -36,6 +40,10 @@ namespace SimpleBackend.WebApi.Models.Jobs
         {
             _timer?.Change(Timeout.Infinite, 0);
             Console.WriteLine("Worker is start");
+            if(_acceptedQueue.IsEmpty)
+                return;
+
+            var job = _acceptedQueue.Dequeue();
             Console.WriteLine($"AcceptedQueue is empty?:{_acceptedQueue.IsEmpty}");
             Console.WriteLine($"ResultQueue is empty?:{_resultQueue.IsEmpty}");
             Console.WriteLine("Worker is end");

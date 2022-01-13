@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
+using SimpleBackend.WebApi.Models.Jobs.Worker;
 
 namespace SimpleBackend.WebApi.Models.Jobs
 {
@@ -11,7 +12,6 @@ namespace SimpleBackend.WebApi.Models.Jobs
     {
         private readonly QueueWrapper<Job> _acceptingQueue;
         private readonly ResultJobQueue _resultQueue;
-        private readonly WorkerHostedService _workerHostedService;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -19,14 +19,12 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// </summary>
         /// <param name="acceptingQueue">Очередь принятых задач</param>
         /// <param name="resultQueue">Очередь выполненых задач</param>
-        /// <param name="jobWorkerHostedService">Обработчки задач</param>
         /// <param name="logger">Журнал логирования</param>
         /// <exception cref="ArgumentException">Если одна из очередей, либо обработчик задач будут null</exception>
-        public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, WorkerHostedService jobWorkerHostedService, ILogger logger = null)
+        public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, ILogger logger = null)
         {
             _acceptingQueue = acceptingQueue ?? throw new ArgumentException(nameof(acceptingQueue));
             _resultQueue = resultQueue ?? throw new ArgumentException(nameof(resultQueue));
-            _workerHostedService = jobWorkerHostedService ?? throw new ArgumentException(nameof(jobWorkerHostedService));
             _logger = logger;
         }
 
