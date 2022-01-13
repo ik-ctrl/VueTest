@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {
     /// <summary>
-    /// 
+    /// Очередь результатов работы
     /// </summary>
     public sealed class ResultJobQueue
     {
@@ -17,7 +17,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         /// Инициализация
         /// </summary>
         /// <param name="logger">Журнал логирования</param>
-        public ResultJobQueue(ILogger logger)
+        public ResultJobQueue(ILogger logger=null)
         {
             _logger = logger;
             _resultDictionary = new ConcurrentDictionary<Guid, JobResult>();
@@ -58,16 +58,15 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         /// <returns>Результат выполнения работы</returns>
         public JobResult GetResult(Guid jobId)
         {
-            if (isEmpty)
+            if (IsEmpty)
                 return null;
-            if (_resultDictionary.TryGetValue(jobId, out var result))
-                return result;
-            throw new Exception("Не удалось изъять результат работы из очереди");
+            _resultDictionary.TryGetValue(jobId, out var result);
+            return result;
         }
 
         /// <summary>
         /// Флаг проверки на пустую очередь результатов
         /// </summary>
-        public bool isEmpty => !_resultDictionary.Any();
+        public bool IsEmpty => !_resultDictionary.Any();
     }
 }

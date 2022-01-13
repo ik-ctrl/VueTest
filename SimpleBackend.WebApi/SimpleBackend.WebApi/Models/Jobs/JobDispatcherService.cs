@@ -11,7 +11,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
     {
         private readonly QueueWrapper<Job> _acceptingQueue;
         private readonly ResultJobQueue _resultQueue;
-        private readonly Worker _worker;
+        private readonly WorkerHostedService _workerHostedService;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -19,14 +19,14 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// </summary>
         /// <param name="acceptingQueue">Очередь принятых задач</param>
         /// <param name="resultQueue">Очередь выполненых задач</param>
-        /// <param name="jobWorker">Обработчки задач</param>
+        /// <param name="jobWorkerHostedService">Обработчки задач</param>
         /// <param name="logger">Журнал логирования</param>
         /// <exception cref="ArgumentException">Если одна из очередей, либо обработчик задач будут null</exception>
-        public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, Worker jobWorker, ILogger logger = null)
+        public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, WorkerHostedService jobWorkerHostedService, ILogger logger = null)
         {
             _acceptingQueue = acceptingQueue ?? throw new ArgumentException(nameof(acceptingQueue));
             _resultQueue = resultQueue ?? throw new ArgumentException(nameof(resultQueue));
-            _worker = jobWorker ?? throw new ArgumentException(nameof(jobWorker));
+            _workerHostedService = jobWorkerHostedService ?? throw new ArgumentException(nameof(jobWorkerHostedService));
             _logger = logger;
         }
 

@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SimpleBackend.Database;
+using SimpleBackend.WebApi.Models.Jobs;
+using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -59,6 +61,10 @@ namespace SimpleBackend.WebApi
             services
                 .AddHealthChecks()
                 .AddNpgSql(connection.GetConnectionString());
+
+            services.AddSingleton<AcceptedJobQueue>();
+            services.AddSingleton<ResultJobQueue>();
+            services.AddHostedService<WorkerHostedService>();
         }
 
         /// <summary>
