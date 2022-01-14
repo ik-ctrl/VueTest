@@ -11,13 +11,13 @@ namespace SimpleBackend.WebApi.Models.Worker
         /// Добавить новую задачу
         /// </summary>
         [Description("Добавить новую задачу")]
-        AddTodo = 1,
+        AddTodos = 1,
         
         /// <summary>
         /// Удалить задачу
         /// </summary>
         [Description("Удалить задачу")]
-        RemoveTodo=2,
+        RemoveTodos=2,
         
         /// <summary>
         /// Обновить задачу

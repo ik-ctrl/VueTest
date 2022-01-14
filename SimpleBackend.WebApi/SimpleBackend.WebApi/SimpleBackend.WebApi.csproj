@@ -24,4 +24,8 @@
       <ProjectReference Include="..\SimpleBackend.Database\SimpleBackend.Database.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Models\Helpers" />
+    </ItemGroup>
+
 </Project>

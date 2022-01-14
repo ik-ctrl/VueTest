@@ -28,7 +28,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             };
             _queue.Enqueue(job);
@@ -48,7 +48,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             };
             _queue.Enqueue(job);
@@ -64,7 +64,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = testJobId,
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -72,7 +72,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -80,14 +80,14 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             var job = _queue.Dequeue();
@@ -111,7 +111,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -119,7 +119,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -127,14 +127,14 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = testJobId,
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             var successfulCheckResult = _queue.CheckJob(testJobId);
@@ -160,7 +160,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -168,7 +168,7 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
 
@@ -176,14 +176,14 @@ namespace SimpleBackend.Tests.ApiTests
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
                 Id = Guid.NewGuid(),
                 Message = "new Job",
-                Type = JobType.AddTodo,
+                Type = JobType.AddTodos,
                 JobObject = new object()
             });
             Assert.IsFalse(_queue.IsEmpty);
