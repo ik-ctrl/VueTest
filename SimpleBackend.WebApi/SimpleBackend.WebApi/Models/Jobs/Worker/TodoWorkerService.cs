@@ -11,7 +11,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
     /// <summary>
     /// Сервис  обработки с связанный задачами
     /// </summary>
-    internal sealed class TodoAsyncWorkerService
+    internal sealed class TodoWorkerService
     {
         private readonly PostgresDbContext _context;
 
@@ -19,7 +19,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// Инициализация сервиса
         /// </summary>
         /// <param name="context">Контекст БД</param>
-        public TodoAsyncWorkerService(PostgresDbContext context)
+        public TodoWorkerService(PostgresDbContext context)
             => _context = context ?? throw new ArgumentNullException(nameof(context));
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <returns>Результат выполнения операции</returns>
         /// <exception cref="ArgumentNullException">jobUnit==null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.GetAllTodos</exception>
-        public JobResult GetAllTodosAsync(Job jobUnit)
+        public JobResult GetAllTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
