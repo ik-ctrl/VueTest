@@ -28,15 +28,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <param name="acceptedQueue">Очередь принятых задач</param>
         /// <param name="resultQueue">Очередь выполненых задач</param>
         /// <param name="todoService">Сервис обработки  тудушек</param>
-        /// <param name="scopeFactory"></param>
         /// <param name="logger">Журнал логирования</param>
         /// <exception cref="ArgumentNullException">acceptedQueue==null</exception>
         /// <exception cref="ArgumentNullException">resultQueue==null</exception>
-        public WorkerHostedService( AcceptedJobQueue acceptedQueue, ResultJobQueue resultQueue,IServiceScopeFactory scopeFactory,TodoWorkerService workerService, ILogger logger = null)
+        public WorkerHostedService(TodoWorkerService todoService, AcceptedJobQueue acceptedQueue, ResultJobQueue resultQueue,ILogger logger = null)
         {
             _acceptedQueue = acceptedQueue ?? throw new ArgumentNullException(nameof(acceptedQueue));
             _resultQueue = resultQueue ?? throw new ArgumentNullException(nameof(resultQueue));
-            _scopeFactory = scopeFactory;
+            _todoWorkerService = todoService;
             _logger = logger;
         }
 
@@ -67,7 +66,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 return;
             }
             var job = _acceptedQueue.Dequeue();
-            Console.WriteLine($"Executed Job :{job.ToString()}");
+            Console.WriteLine($"Executed Job :{job}");
             try
             {
                 var result = job.Type switch

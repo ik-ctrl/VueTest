@@ -10,7 +10,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
     /// </summary>
     public sealed class JobDispatcherService
     {
-        private readonly QueueWrapper<Job> _acceptingQueue;
+        private readonly AcceptedJobQueue _acceptingQueue;
         private readonly ResultJobQueue _resultQueue;
         private readonly ILogger _logger;
 
@@ -21,7 +21,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <param name="resultQueue">Очередь выполненых задач</param>
         /// <param name="logger">Журнал логирования</param>
         /// <exception cref="ArgumentException">Если одна из очередей, либо обработчик задач будет null</exception>
-        public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, ILogger logger = null)
+        public JobDispatcherService(AcceptedJobQueue acceptingQueue, ResultJobQueue resultQueue, ILogger logger = null)
         {
             _acceptingQueue = acceptingQueue ?? throw new ArgumentException(nameof(acceptingQueue));
             _resultQueue = resultQueue ?? throw new ArgumentException(nameof(resultQueue));
