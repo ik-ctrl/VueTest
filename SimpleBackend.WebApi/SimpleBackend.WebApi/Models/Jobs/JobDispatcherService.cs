@@ -20,7 +20,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <param name="acceptingQueue">Очередь принятых задач</param>
         /// <param name="resultQueue">Очередь выполненых задач</param>
         /// <param name="logger">Журнал логирования</param>
-        /// <exception cref="ArgumentException">Если одна из очередей, либо обработчик задач будут null</exception>
+        /// <exception cref="ArgumentException">Если одна из очередей, либо обработчик задач будет null</exception>
         public JobDispatcherService(QueueWrapper<Job> acceptingQueue, ResultJobQueue resultQueue, ILogger logger = null)
         {
             _acceptingQueue = acceptingQueue ?? throw new ArgumentException(nameof(acceptingQueue));
