@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.Database;
@@ -19,22 +20,23 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         private readonly AcceptedJobQueue _acceptedQueue;
         private readonly ResultJobQueue _resultQueue;
         private readonly TodoWorkerService _todoWorkerService;
+        private readonly IServiceScopeFactory _scopeFactory;
 
         /// <summary>
         /// Инициализация
         /// </summary>
-        /// <param name="context">Контекст базы данных</param>
         /// <param name="acceptedQueue">Очередь принятых задач</param>
         /// <param name="resultQueue">Очередь выполненых задач</param>
+        /// <param name="todoService">Сервис обработки  тудушек</param>
+        /// <param name="scopeFactory"></param>
         /// <param name="logger">Журнал логирования</param>
         /// <exception cref="ArgumentNullException">acceptedQueue==null</exception>
         /// <exception cref="ArgumentNullException">resultQueue==null</exception>
-        public WorkerHostedService(PostgresDbContext context, AcceptedJobQueue acceptedQueue, ResultJobQueue resultQueue, ILogger logger = null)
+        public WorkerHostedService( AcceptedJobQueue acceptedQueue, ResultJobQueue resultQueue,IServiceScopeFactory scopeFactory,TodoWorkerService workerService, ILogger logger = null)
         {
             _acceptedQueue = acceptedQueue ?? throw new ArgumentNullException(nameof(acceptedQueue));
             _resultQueue = resultQueue ?? throw new ArgumentNullException(nameof(resultQueue));
-            //todo: возможно стоит про инжектить через конструктор, используя интерфейс(DI) => 1. worker  не будет знать о БД. Можно тестировать  service
-            _todoWorkerService = new TodoWorkerService(context);
+            _scopeFactory = scopeFactory;
             _logger = logger;
         }
 
@@ -60,8 +62,12 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             Console.WriteLine($"AcceptedQueue is empty?:{_acceptedQueue.IsEmpty}");
             Console.WriteLine($"ResultQueue is empty?:{_resultQueue.IsEmpty}");
             if (_acceptedQueue.IsEmpty)
+            {
+                _timer?.Change(1000, 1000);
                 return;
+            }
             var job = _acceptedQueue.Dequeue();
+            Console.WriteLine($"Executed Job :{job.ToString()}");
             try
             {
                 var result = job.Type switch

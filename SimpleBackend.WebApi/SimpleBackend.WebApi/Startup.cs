@@ -66,7 +66,7 @@ namespace SimpleBackend.WebApi
             services.AddSingleton<AcceptedJobQueue>();
             services.AddSingleton<ResultJobQueue>();
             services.AddHostedService<WorkerHostedService>();
-            services.AddTransient<JobDispatcherService>();
+            // services.AddTransient<JobDispatcherService>();
         }
 
         /// <summary>

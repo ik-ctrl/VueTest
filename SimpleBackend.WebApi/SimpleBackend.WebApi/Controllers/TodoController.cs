@@ -20,17 +20,16 @@ namespace SimpleBackend.WebApi.Controllers
         private readonly ILogger<TodoController> _logger;
         private readonly JobDispatcherService _dispatcherService;
 
-        /// <summary>
-        /// Инициализация
-        /// </summary>
-        /// <param name="dispatcherService">Диспетчер задач</param>
-        /// <param name="logger">Журнал логирования</param>
-        public TodoController(JobDispatcherService dispatcherService, ILogger<TodoController> logger)
-        {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Отсутвует журнал логирования ошибок");
-            _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService), "Отсутвует диспетчер обработки задач");
-            ;
-        }
+        // /// <summary>
+        // /// Инициализация
+        // /// </summary>
+        // /// <param name="dispatcherService">Диспетчер задач</param>
+        // /// <param name="logger">Журнал логирования</param>
+        // public TodoController(JobDispatcherService dispatcherService, ILogger<TodoController> logger)
+        // {
+        //     _logger = logger ?? throw new ArgumentNullException(nameof(logger), "Отсутвует журнал логирования ошибок");
+        //     _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService), "Отсутвует диспетчер обработки задач");
+        // }
 
         /// <summary>
         /// Запрос записанных задач
@@ -39,6 +38,7 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTodos()
         {
+            return await Task.Run(() => Ok());
             return await Task.Run(async () =>
             {
                 var id = Guid.NewGuid();
@@ -92,7 +92,12 @@ namespace SimpleBackend.WebApi.Controllers
         {
             return await Task.Run(() => Ok());
         }
-
+        
+        /// <summary>
+        /// Удаление под задач
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
         public async Task<IActionResult> DeleteSubTodos() => await Task.Run(() => Ok());
     }
 }
