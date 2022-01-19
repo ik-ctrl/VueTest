@@ -1,10 +1,15 @@
-﻿namespace SimpleBackend.WebApi.Models.DTO
+﻿namespace SimpleBackend.WebApi.DTO
 {
     /// <summary>
     /// Модель подзадачи
     /// </summary>
     public class SubTodoDTO
     {
+        /// <summary>
+        /// Идентификатор задачи
+        /// </summary>
+        public int UiTodoId { get; init; }
+        
         /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
@@ -19,11 +24,5 @@
         /// Флаг выполнения задачи
         /// </summary>
         public bool Confirm { get; init; }
-        
-        /// <summary>
-        /// Идентификатор задачи
-        /// </summary>
-        public uint TodoId { get; init; }
-        
     }
 }

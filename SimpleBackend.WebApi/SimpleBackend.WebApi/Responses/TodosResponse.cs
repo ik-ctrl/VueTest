@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Models.DTO;
 using SimpleBackend.WebApi.Models.Enums;
 

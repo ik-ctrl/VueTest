@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
+using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Models.Worker;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
@@ -71,10 +72,18 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 throw new ArgumentNullException(nameof(jobUnit));
 
             if (jobUnit.Type != JobType.AddTodos)
-                throw new Exception($"Некорректный тип работы для данного метода(AddTodoAsync):{jobUnit.Type}");
+                throw new Exception($"Некорректный тип работы для данного метода(AddTodo):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<Todo> todos)
+            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
                 throw new Exception("AddTodoAsync::Не удалось преобразовать jobUnit.JobObject");
+
+            var todos = new List<Todo>();
+            foreach (var todoDTO in todosDTO)
+            {
+                var todo = new Todo() { Confirm = todoDTO.Confirm, Title = todoDTO.Title, UiKey = todoDTO.UiId};
+                ExtractSubTodos(todoDTO, todo);
+                todos.Add(todo);
+            }
 
             using (var scope = _scopeFactory.CreateScope())
             {
@@ -94,6 +103,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null
             };
         }
+
+       
 
         /// <summary>
         /// Удаление списка задач по идентификаторам выданных графическим интерфейсом 
@@ -125,10 +136,11 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                             continue;
                         db.Todos.Remove(todo);
                     }
+
                     db.SaveChanges();
                 }
             }
-            
+
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -137,7 +149,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-        
+
         /// <summary>
         /// Обновление списка задач
         /// </summary>
@@ -153,7 +165,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<Todo> todos)
+            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todos)
                 throw new Exception("UpdateTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
@@ -162,14 +174,15 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 {
                     foreach (var item in todos)
                     {
-                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiKey));
+                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId));
                         if (todo == null)
                             continue;
                         todo.Confirm = item.Confirm;
                         todo.Title = item.Title;
-                        todo.SubTodos = item.SubTodos;
+                        UpdateSubTodos(todo, item);
                         db.Todos.Update(todo);
                     }
+
                     db.SaveChanges();
                 }
             }
@@ -182,6 +195,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
+
+
 
         /// <summary>
         /// Добавления подзадач
@@ -202,7 +217,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             if (jobUnit.JobObject is not IEnumerable<SubTodo> subTodos)
                 throw new Exception("AddSubTodos::Не удалось преобразовать jobUnit.JobObject");
-            
+
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
@@ -317,6 +332,46 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 Message = string.Empty,
                 ResultObject = null,
             };
+        }
+        
+        /// <summary>
+        /// Обновление подзадач
+        /// </summary>
+        /// <param name="todo"></param>
+        /// <param name="item"></param>
+        private void UpdateSubTodos(Todo todo, TodoDTO item)
+        {
+            // todo:продумать
+            // if()
+            // todo.SubTodos = item.SubTodos;
+        }
+        
+        /// <summary>
+        /// Изъятие подзадач из DTO
+        /// </summary>
+        /// <param name="todoDTO">Данные подзадач</param>
+        /// <param name="todo">Формируемая задача</param>
+        private void ExtractSubTodos(TodoDTO todoDTO, Todo todo)
+        {
+            var extractedSubTodos = new List<SubTodo>();
+            
+            if (todoDTO.SubTodos == null)
+            {
+                todo.SubTodos = new List<SubTodo>();
+                return;
+            }
+                
+            foreach (var subTodoDTO in todoDTO.SubTodos)
+            {
+                extractedSubTodos.Add(new SubTodo()
+                {
+                    Confirm = subTodoDTO.Confirm,
+                    Description = subTodoDTO.Description,
+                    UiKey = subTodoDTO.UiId,
+                    Todo = todo
+                });
+            }
+            todo.SubTodos = extractedSubTodos;
         }
     }
 }

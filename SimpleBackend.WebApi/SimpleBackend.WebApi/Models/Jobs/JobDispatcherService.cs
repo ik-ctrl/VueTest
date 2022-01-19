@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Jobs.Worker;
@@ -44,7 +45,28 @@ namespace SimpleBackend.WebApi.Models.Jobs
                 throw;
             }
         }
-        
+
+        /// <summary>
+        /// Асинхронное добавление задачи в список задач принятых в обработку
+        /// </summary>
+        /// <param name="newJob">Новая задача</param>
+        public async Task AddJobAsync(Job newJob)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    _acceptingQueue.Enqueue(newJob);
+                }
+                catch (Exception e)
+                {
+                    _logger?.LogError($"Не удалось добавить задачу в список задач. Причина:{e.Message}");
+                    throw;
+                }
+            });
+        }
+
+
         /// <summary>
         /// Проверка статуса выполнения задачи
         /// </summary>
@@ -53,7 +75,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         {
             return true;
         }
-        
+
         /// <summary>
         /// Результат выполнения задачи
         /// </summary>

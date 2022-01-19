@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using SimpleBackend.WebApi.Models.DTO;
 
-namespace SimpleBackend.WebApi.Models.DTO
+namespace SimpleBackend.WebApi.DTO
 {
     /// <summary>
     /// Модель задачи 
     /// </summary>
-    public class TodoDTO
+    public sealed class TodoDTO
     {
         /// <summary>
         /// Инициализация
