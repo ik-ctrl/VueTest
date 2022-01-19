@@ -38,58 +38,42 @@ namespace SimpleBackend.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTodos()
         {
-            return await Task.Run( () =>
+            return await Task.Run<IActionResult>( () =>
             {
-                var id = Guid.NewGuid();
-                var job = new Job()
+                
+                try
                 {
-                    Id = id ,
-                    Message = string.Empty,
-                    Type = JobType.GetAllTodos,
-                    JobObject = null
-                };
-                _dispatcherService.AddJob(job);
-                var result = new JobInfoResponse()
+                    var id = Guid.NewGuid();
+                    var job = new Job()
+                    {
+                        Id = id,
+                        Message = string.Empty,
+                        Type = JobType.GetAllTodos,
+                        JobObject = null
+                    };
+                    _dispatcherService.AddJob(job);
+                    var result = new JobInfoResponse()
+                    {
+                        Location = "localhost",
+                        ErrorCode = ErrorCodeType.NoError,
+                        ErrorMessage = "все хорошо",
+                        JobId = id
+                    };
+                    return Accepted(result);
+                }
+                catch (Exception e)
                 {
-                    Location = "localhost",
-                    ErrorCode = ErrorCodeType.NoError,
-                    ErrorMessage = "все хорошо",
-                    JobId = id
-                };
-                return Accepted(result);
-                // try
-                // {
-                //     var id = Guid.NewGuid();
-                //     var job = new Job()
-                //     {
-                //         Id = id ,
-                //         Message = string.Empty,
-                //         Type = JobType.GetAllTodos,
-                //         JobObject = null
-                //     };
-                //     _dispatcherService.AddJob(job);
-                //     var result = new JobInfoResponse()
-                //     {
-                //         Location = "localhost",
-                //         ErrorCode = ErrorCodeType.NoError,
-                //         ErrorMessage = "все хорошо",
-                //         JobId = id
-                //     };
-                //     return Accepted(result);
-                // }
-                // catch (Exception e)
-                // {
-                //     var errorMessage = $"Не удалось запросить список всех задач. Причина: {e.Message}";
-                //     _logger?.LogError(errorMessage,e);
-                //     var result = new JobInfoResponse()
-                //     {
-                //         Location = "none",
-                //         ErrorCode = ErrorCodeType.UnknownError,
-                //         ErrorMessage = errorMessage,
-                //         JobId = Guid.Empty
-                //     };
-                //     return Ok();
-                // }
+                    var errorMessage = $"Не удалось запросить список всех задач. Причина: {e.Message}";
+                    _logger?.LogError(errorMessage, e);
+                    var result = new JobInfoResponse()
+                    {
+                        Location = "none",
+                        ErrorCode = ErrorCodeType.UnknownError,
+                        ErrorMessage = errorMessage,
+                        JobId = Guid.Empty
+                    };
+                    return BadRequest(result);
+                }
             });
         }
 
