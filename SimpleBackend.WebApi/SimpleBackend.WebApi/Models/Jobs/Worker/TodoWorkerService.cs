@@ -80,7 +80,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             var todos = new List<Todo>();
             foreach (var todoDTO in todosDTO)
             {
-                var todo = new Todo() { Confirm = todoDTO.Confirm, Title = todoDTO.Title, UiKey = todoDTO.UiId};
+                var todo = new Todo() { Confirm = todoDTO.Confirm, Title = todoDTO.Title, UiKey = todoDTO.UiId };
                 ExtractSubTodos(todoDTO, todo);
                 todos.Add(todo);
             }
@@ -104,7 +104,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
-       
 
         /// <summary>
         /// Удаление списка задач по идентификаторам выданных графическим интерфейсом 
@@ -150,6 +149,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
+        ///пока не понятно
         /// <summary>
         /// Обновление списка задач
         /// </summary>
@@ -195,9 +195,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
-
-
+        
         /// <summary>
         /// Добавления подзадач
         /// </summary>
@@ -215,25 +213,37 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(AddSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<SubTodo> subTodos)
+            if (jobUnit.JobObject is not IEnumerable<SubTodoDTO> subTodosDTO)
                 throw new Exception("AddSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var item in subTodos)
+                    foreach (var item in subTodosDTO)
                     {
-                        var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(item.UiKey));
+                        var todo = db.Todos.Include(t => t.SubTodos).FirstOrDefault(t => t.UiKey.Equals(item.UiTodoId));
+                        if (todo == null)
+                            continue;
+                        
+                        var subTodo = todo.SubTodos.FirstOrDefault(i => i.UiKey.Equals(item.UiId));
                         if (subTodo != null)
-                            throw new Exception("AddSubTodos::Не удалось добавить подзадачу,т.к. подзадача с таким же графическим идентификатором уже присутствует");
-                        db.SubTodos.Add(item);
+                            continue;
+                        
+                        var newSubTodo = new SubTodo()
+                        {
+                            Confirm = item.Confirm,
+                            Description = item.Description,
+                            Todo = todo,
+                            UiKey = item.UiId,
+                            TodoId = todo.TodoId
+                        };
+                        db.SubTodos.Add(newSubTodo);
                     }
-
                     db.SaveChanges();
                 }
             }
-
+            
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -243,6 +253,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
+        /// не понятно как  пока 
         /// <summary>
         /// Обновление списка подзадач
         /// </summary>
@@ -333,7 +344,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-        
+
         /// <summary>
         /// Обновление подзадач
         /// </summary>
@@ -341,11 +352,17 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <param name="item"></param>
         private void UpdateSubTodos(Todo todo, TodoDTO item)
         {
+            foreach (var subTodos in item.SubTodos)
+            {
+                
+            }
+            
             // todo:продумать
+            
             // if()
             // todo.SubTodos = item.SubTodos;
         }
-        
+
         /// <summary>
         /// Изъятие подзадач из DTO
         /// </summary>
@@ -354,13 +371,13 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         private void ExtractSubTodos(TodoDTO todoDTO, Todo todo)
         {
             var extractedSubTodos = new List<SubTodo>();
-            
+
             if (todoDTO.SubTodos == null)
             {
                 todo.SubTodos = new List<SubTodo>();
                 return;
             }
-                
+
             foreach (var subTodoDTO in todoDTO.SubTodos)
             {
                 extractedSubTodos.Add(new SubTodo()
@@ -371,6 +388,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     Todo = todo
                 });
             }
+
             todo.SubTodos = extractedSubTodos;
         }
     }

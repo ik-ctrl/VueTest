@@ -12,7 +12,6 @@ namespace SimpleBackend.WebApi.Helpers
     /// </summary>
     public class JobGenerator
     {
-
         /// <summary>
         /// Основной метод генерации единиц работы
         /// </summary>
@@ -53,7 +52,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="uiKeys">Список идентификаторов ключей</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateRemoveTodos(Guid jobId,IEnumerable<int> uiKeys)
+        public Job GenerateRemoveTodosJob(Guid jobId,IEnumerable<int> uiKeys)
             => GenerateJobUnit(jobId, string.Empty, JobType.RemoveTodos, uiKeys);
         
         /// <summary>
@@ -62,53 +61,19 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="todos">Список обновляемых задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateUpdateTodos(Guid jobId,IEnumerable<TodoDTO> todos)
+        public Job GenerateUpdateTodosJob(Guid jobId,IEnumerable<TodoDTO> todos)
             => GenerateJobUnit(jobId, string.Empty, JobType.UpdateTodos, todos);
-        //
-        // /// <summary>
-        // /// Обновление списка задач
-        // /// </summary>
-        // /// <param name="jobUnit">Единица работы</param>
-        // /// <returns>Результат выполнения операции</returns>
-        // /// <exception cref="ArgumentNullException"></exception>
-        // /// <exception cref="Exception"></exception>
-        // public JobResult UpdateTodos(Job jobUnit)
-        // {
-        //     if (jobUnit == null)
-        //         throw new ArgumentNullException(nameof(jobUnit));
-        //
-        //     if (jobUnit.Type != JobType.AddTodos)
-        //         throw new Exception($"Некорректный тип работы для данного метода(UpdateTodos):{jobUnit.Type}");
-        //
-        //     if (jobUnit.JobObject is not IEnumerable<Todo> todos)
-        //         throw new Exception("UpdateTodos::Не удалось преобразовать jobUnit.JobObject");
-        //
-        //     using (var scope = _scopeFactory.CreateScope())
-        //     {
-        //         using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
-        //         {
-        //             foreach (var item in todos)
-        //             {
-        //                 var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiKey));
-        //                 if (todo == null)
-        //                     continue;
-        //                 todo.Confirm = item.Confirm;
-        //                 todo.Title = item.Title;
-        //                 todo.SubTodos = item.SubTodos;
-        //                 db.Todos.Update(todo);
-        //             }
-        //             db.SaveChanges();
-        //         }
-        //     }
-        //
-        //     return new JobResult()
-        //     {
-        //         Id = jobUnit.Id,
-        //         IsSuccess = true,
-        //         Message = string.Empty,
-        //         ResultObject = null,
-        //     };
-        // }
+        
+        
+        /// <summary>
+        /// Метод генерации единицы работы для запроса всех задач
+        /// </summary>
+        /// <param name="jobId">Идентификатор работы</param>
+        /// <param name="todos">Список обновляемых задач</param>
+        /// <returns>Единица работы</returns>
+        public Job GenerateAddSubTodosJob(Guid jobId,IEnumerable<SubTodoDTO> todos)
+            => GenerateJobUnit(jobId, string.Empty, JobType.UpdateTodos, todos);
+        
         //
         // /// <summary>
         // /// Добавления подзадач

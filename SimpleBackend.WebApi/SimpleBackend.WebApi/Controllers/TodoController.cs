@@ -27,7 +27,7 @@ namespace SimpleBackend.WebApi.Controllers
         /// <param name="logger">Журнал логирования</param>
         public TodoController(JobDispatcherService dispatcherService)
         {
-            //_logger = logger ?? throw new ArgumentNullException(nameof(logger), "Отсутвует журнал логирования ошибок");
+            //_logger = logger ?? throw new ArgumentNullException(nameof(logger), "Отсутствует журнал логирования ошибок");
             _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService), "Отсутвует диспетчер обработки задач");
         }
 
@@ -70,44 +70,7 @@ namespace SimpleBackend.WebApi.Controllers
                     JobId = Guid.Empty
                 };
                 return BadRequest(result);
-
-
-                // try
-                // {
-                //     var id = Guid.NewGuid();
-                //     var job = new Job()
-                //     {
-                //         Id = id,
-                //         Message = string.Empty,
-                //         Type = JobType.GetAllTodos,
-                //         JobObject = null
-                //     };
-                //     _dispatcherService.AddJob(job);
-                //     var result = new JobInfoResponse()
-                //     {
-                //         Location = "localhost",
-                //         ErrorCode = ErrorCodeType.NoError,
-                //         ErrorMessage = "все хорошо",
-                //         JobId = id
-                //     };
-                //     return Accepted(result);
-                // }
-                // catch (Exception e)
-                // {
-                //     var errorMessage = $"Не удалось запросить список всех задач. Причина: {e.Message}";
-                //     _logger?.LogError(errorMessage, e);
-                //     var result = new JobInfoResponse()
-                //     {
-                //         Location = "none",
-                //         ErrorCode = ErrorCodeType.UnknownError,
-                //         ErrorMessage = errorMessage,
-                //         JobId = Guid.Empty
-                //     };
-                //     return BadRequest(result);
-                // }
             }
-
-            ;
         }
 
         /// <summary>
