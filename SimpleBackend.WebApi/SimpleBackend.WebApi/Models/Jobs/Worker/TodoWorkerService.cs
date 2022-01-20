@@ -149,6 +149,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
+        ///Скорее всего нужно будет удалить старые записи, затем добавить новые
         ///пока не понятно
         /// <summary>
         /// Обновление списка задач
@@ -179,7 +180,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                             continue;
                         todo.Confirm = item.Confirm;
                         todo.Title = item.Title;
-                        UpdateSubTodos(todo, item);
+                        
                         db.Todos.Update(todo);
                     }
 
@@ -195,6 +196,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
+        
+        ///Скорее всего нужно будет удалить старые записи, затем добавить новые
         
         /// <summary>
         /// Добавления подзадач
@@ -301,6 +304,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         }
 
 
+
         /// <summary>
         /// Удаление списка подзадач
         /// </summary>
@@ -344,25 +348,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
-        /// <summary>
-        /// Обновление подзадач
-        /// </summary>
-        /// <param name="todo"></param>
-        /// <param name="item"></param>
-        private void UpdateSubTodos(Todo todo, TodoDTO item)
-        {
-            foreach (var subTodos in item.SubTodos)
-            {
-                
-            }
-            
-            // todo:продумать
-            
-            // if()
-            // todo.SubTodos = item.SubTodos;
-        }
-
+        
         /// <summary>
         /// Изъятие подзадач из DTO
         /// </summary>
@@ -371,7 +357,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         private void ExtractSubTodos(TodoDTO todoDTO, Todo todo)
         {
             var extractedSubTodos = new List<SubTodo>();
-
             if (todoDTO.SubTodos == null)
             {
                 todo.SubTodos = new List<SubTodo>();
