@@ -241,7 +241,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// Обновление списка подзадач
         /// </summary>
         /// <param name="jobUnit">Единица работы</param>
-        /// <returns>Результат выполнения операции</returns>
+        /// <returns>Результат выполнения операция</returns>
         /// <exception cref="ArgumentNullException">jobUnit == null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.UpdateSubTodos</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable(SubTodo) subTodos</exception>

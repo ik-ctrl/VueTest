@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SimpleBackend.Database;
+using SimpleBackend.WebApi.Helpers;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Jobs.Worker;
@@ -66,6 +67,7 @@ namespace SimpleBackend.WebApi
             services.AddSingleton<AcceptedJobQueue>();
             services.AddSingleton<ResultJobQueue>();
             services.AddTransient<TodoWorkerService>();
+            services.AddTransient<JobGenerator>();
             services.AddTransient<JobDispatcherService>();
             services.AddHostedService<WorkerHostedService>();
             

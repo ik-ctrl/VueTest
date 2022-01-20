@@ -103,7 +103,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// Окончание работы сервиса
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <returns></returns>
+        /// <returns>Задача на завершение работы сервиса</returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
             _timer = new Timer(Main, null, 1000, 1000);

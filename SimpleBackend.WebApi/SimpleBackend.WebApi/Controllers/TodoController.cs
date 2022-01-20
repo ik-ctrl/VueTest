@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SimpleBackend.WebApi.Helpers;
 using SimpleBackend.WebApi.Models.Enums;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Responses;
@@ -19,16 +20,19 @@ namespace SimpleBackend.WebApi.Controllers
     {
         private readonly ILogger<TodoController> _logger;
         private readonly JobDispatcherService _dispatcherService;
+        private readonly JobGenerator _jobGenerator;
 
         /// <summary>
         /// Инициализация
         /// </summary>
         /// <param name="dispatcherService">Диспетчер задач</param>
         /// <param name="logger">Журнал логирования</param>
-        public TodoController(JobDispatcherService dispatcherService)
+        /// <param name="jobGenerator">Генератор единиц работы</param>
+        public TodoController(JobDispatcherService dispatcherService, JobGenerator jobGenerator)
         {
             //_logger = logger ?? throw new ArgumentNullException(nameof(logger), "Отсутствует журнал логирования ошибок");
-            _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService), "Отсутвует диспетчер обработки задач");
+            _dispatcherService = dispatcherService ?? throw new ArgumentNullException(nameof(dispatcherService), "Отсутствует диспетчер обработки задач");
+            _jobGenerator = jobGenerator ?? throw new ArgumentNullException(nameof(jobGenerator), "Отсутствует генератор работы");
         }
 
         /// <summary>
@@ -41,17 +45,10 @@ namespace SimpleBackend.WebApi.Controllers
             try
             {
                 var id = Guid.NewGuid();
-                var job = new Job()
-                {
-                    Id = id,
-                    Message = string.Empty,
-                    Type = JobType.GetAllTodos,
-                    JobObject = null
-                };
-                await _dispatcherService.AddJobAsync(job);
+                await _dispatcherService.AddJobAsync(_jobGenerator.GenerateGetAllTodosJob(id));
                 var result = new JobInfoResponse()
                 {
-                    Location = "localhost",
+                    Location = "Test Location",
                     ErrorCode = ErrorCodeType.NoError,
                     ErrorMessage = "все хорошо",
                     JobId = id

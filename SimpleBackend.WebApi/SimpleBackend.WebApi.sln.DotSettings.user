@@ -1,4 +1,19 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=127d0657_002D045b_002D49be_002Db85b_002D379654478f71/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetNoErrorDisplayName" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.HelpersTests.EnumsDisplayTest.GetNoErrorDisplayName&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=69efe970_002D3a9d_002D4187_002D8080_002D1e1303a321cc/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetNoErrorDisplayName #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.HelpersTests.EnumsDisplayTest.GetNoErrorDisplayName&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cc9ffe5c_002Daa64_002D4676_002D91ba_002D2467471c7862/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetNoErrorDisplayName #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.HelpersTests.EnumsDisplayTest.GetEnumWithoutDisplayNameAttribute&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0415_0434_0438_043D_0438_0446_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041E_0431_0440_0430_0431_043E_0442_043A_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0432_0441_0435_0445/@EntryIndexedValue">True</s:Boolean>
