@@ -7,6 +7,7 @@ using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Models.Worker;
+using SimpleBackend.WebApi.Requests;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
 {
@@ -74,17 +75,10 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(AddTodo):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
+            if (jobUnit.JobObject is not TodoRequest request)
                 throw new Exception("AddTodoAsync::Не удалось преобразовать jobUnit.JobObject");
 
-            var todos = new List<Todo>();
-            foreach (var todoDTO in todosDTO)
-            {
-                var todo = new Todo() { Confirm = todoDTO.Confirm, Title = todoDTO.Title, UiKey = todoDTO.UiId };
-                ExtractSubTodos(todoDTO, todo);
-                todos.Add(todo);
-            }
-
+            var todos = ConvertTodosDTOToTodos(request.Todos);
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
@@ -104,7 +98,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
-
         /// <summary>
         /// Удаление списка задач по идентификаторам выданных графическим интерфейсом 
         /// </summary>
@@ -121,25 +114,22 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
+            if (jobUnit.JobObject is not KeysRequest request)
                 throw new Exception("RemoveTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var key in uiKeys)
+                    foreach (var key in request.UiKeys)
                     {
                         var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key));
-                        if (todo == null)
-                            continue;
-                        db.Todos.Remove(todo);
+                        if (todo != null)
+                            db.Todos.Remove(todo);
                     }
-
                     db.SaveChanges();
                 }
             }
-
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -148,9 +138,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
-        ///Скорее всего нужно будет удалить старые записи, затем добавить новые
-        ///пока не понятно
+        
         /// <summary>
         /// Обновление списка задач
         /// </summary>
@@ -166,24 +154,18 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todos)
+            if (jobUnit.JobObject is not TodoRequest request)
                 throw new Exception("UpdateTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var item in todos)
-                    {
-                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId));
-                        if (todo == null)
-                            continue;
-                        todo.Confirm = item.Confirm;
-                        todo.Title = item.Title;
-                        
-                        db.Todos.Update(todo);
-                    }
-
+                    var todoList = request.Todos.ToList();
+                    foreach (var todo in todoList.Select(item => db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId))).Where(todo => todo != null))
+                        db.Todos.Remove(todo);
+                    var newTodos = ConvertTodosDTOToTodos(todoList);
+                    db.Todos.AddRange(newTodos);
                     db.SaveChanges();
                 }
             }
@@ -196,9 +178,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-        
+
         ///Скорее всего нужно будет удалить старые записи, затем добавить новые
-        
         /// <summary>
         /// Добавления подзадач
         /// </summary>
@@ -216,37 +197,37 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(AddSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<SubTodoDTO> subTodosDTO)
+            if (jobUnit.JobObject is not SubTodoRequest request)
                 throw new Exception("AddSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var item in subTodosDTO)
+                    var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
+                    if (todo != null)
                     {
-                        var todo = db.Todos.Include(t => t.SubTodos).FirstOrDefault(t => t.UiKey.Equals(item.UiTodoId));
-                        if (todo == null)
-                            continue;
-                        
-                        var subTodo = todo.SubTodos.FirstOrDefault(i => i.UiKey.Equals(item.UiId));
-                        if (subTodo != null)
-                            continue;
-                        
-                        var newSubTodo = new SubTodo()
+                        foreach (var item in request.SubTodos)
                         {
-                            Confirm = item.Confirm,
-                            Description = item.Description,
-                            Todo = todo,
-                            UiKey = item.UiId,
-                            TodoId = todo.TodoId
-                        };
-                        db.SubTodos.Add(newSubTodo);
+                            var subTodo = todo.SubTodos.FirstOrDefault(i => i.UiKey.Equals(item.UiId));
+                            if (subTodo != null)
+                                continue;
+
+                            var newSubTodo = new SubTodo()
+                            {
+                                Confirm = item.Confirm,
+                                Description = item.Description,
+                                Todo = todo,
+                                UiKey = item.UiId,
+                                TodoId = todo.TodoId
+                            };
+                            db.SubTodos.Add(newSubTodo);
+                        }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
                 }
             }
-            
+
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -255,8 +236,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
-        /// не понятно как  пока 
+        
         /// <summary>
         /// Обновление списка подзадач
         /// </summary>
@@ -273,23 +253,18 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.UpdateSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<SubTodo> subTodos)
+            if (jobUnit.JobObject is not SubTodoRequest request)
                 throw new Exception("UpdateSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var item in subTodos)
-                    {
-                        var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(item.UiKey));
-                        if (subTodo == null)
-                            continue;
-                        subTodo.Description = item.Description;
-                        subTodo.Confirm = item.Confirm;
-                        db.SubTodos.Update(subTodo);
-                    }
-
+                    var subTodos = db.SubTodos.Include(st=>st.Todo).Where(st=>st.Todo.UiKey.Equals(request.TodoUiKey));
+                    db.SubTodos.RemoveRange(subTodos);
+                    var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
+                    var newSubTodos = MergeSubTodos(request.SubTodos,todo);
+                    db.SubTodos.AddRange(newSubTodos);
                     db.SaveChanges();
                 }
             }
@@ -302,7 +277,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
 
 
         /// <summary>
@@ -321,14 +295,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
+            if (jobUnit.JobObject is not KeysRequest request)
                 throw new Exception("RemoveSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var key in uiKeys)
+                    foreach (var key in request.UiKeys)
                     {
                         var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key));
                         if (subTodo == null)
@@ -348,33 +322,58 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
+
+
+        /// <summary>
+        /// Конвертация DTO задач в задачи
+        /// </summary>
+        /// <param name="todosDTO"></param>
+        /// <returns>Список задач</returns>
+        private IEnumerable<Todo> ConvertTodosDTOToTodos(IEnumerable<TodoDTO> todosDTO)
+        {
+            var todos = new List<Todo>();
+            foreach (var todoDTO in todosDTO)
+            {
+                var todo = new Todo() { Confirm = todoDTO.Confirm, Title = todoDTO.Title, UiKey = todoDTO.UiId };
+                MergeSubTodos(todoDTO, todo);
+                todos.Add(todo);
+            }
+
+            return todos;
+        }
         
         /// <summary>
         /// Изъятие подзадач из DTO
         /// </summary>
         /// <param name="todoDTO">Данные подзадач</param>
         /// <param name="todo">Формируемая задача</param>
-        private void ExtractSubTodos(TodoDTO todoDTO, Todo todo)
+        private void MergeSubTodos(TodoDTO todoDTO, Todo todo)
         {
-            var extractedSubTodos = new List<SubTodo>();
             if (todoDTO.SubTodos == null)
             {
                 todo.SubTodos = new List<SubTodo>();
                 return;
             }
 
-            foreach (var subTodoDTO in todoDTO.SubTodos)
-            {
-                extractedSubTodos.Add(new SubTodo()
-                {
-                    Confirm = subTodoDTO.Confirm,
-                    Description = subTodoDTO.Description,
-                    UiKey = subTodoDTO.UiId,
-                    Todo = todo
-                });
-            }
-
+            var extractedSubTodos = todoDTO.SubTodos.Select(subTodoDTO =>
+                new SubTodo() { Confirm = subTodoDTO.Confirm, Description = subTodoDTO.Description, UiKey = subTodoDTO.UiId, Todo = todo }).ToList();
             todo.SubTodos = extractedSubTodos;
         }
+        
+        /// <summary>
+        /// Изъятие подзадач из DTO
+        /// </summary>
+        /// <param name="subTodos">Список подзадач</param>
+        /// <param name="todo">Обновляемая задача задача</param>
+        private IEnumerable<SubTodo> MergeSubTodos(IEnumerable<SubTodoDTO> subTodos,Todo todo)
+        {
+            var subTodoDtos = subTodos.ToList();
+            if (!subTodoDtos.Any())
+                return new List<SubTodo>();
+
+            return subTodoDtos.Select(subTodo => new SubTodo() { Confirm = subTodo.Confirm, Description = subTodo.Description, UiKey = subTodo.UiId, Todo = todo }).ToList();
+        }
+        
+        
     }
 }
