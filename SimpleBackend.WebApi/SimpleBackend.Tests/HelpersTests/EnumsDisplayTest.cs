@@ -23,5 +23,20 @@ namespace SimpleBackend.Tests.HelpersTests
             Assert.AreEqual(null,result);
         }
         
+        [TestCase(ErrorCodeType.NoError,"")]
+        [TestCase(ErrorCodeType.UnknownError,"Неизвестная ошибка")]
+        public void GetEnumNormalName(ErrorCodeType errorCode,string expectedDisplayName)
+        {
+            var result = errorCode.GetName();
+            Assert.AreEqual(expectedDisplayName,result);
+        }
+        
+        [TestCase(TestEnumWithoutDisplayAttribute.TestEnum)]
+        public void GetEnumNameWithoutDisplayAttribute(TestEnumWithoutDisplayAttribute testCode)
+        {
+            var result = testCode.GetName();
+            Assert.AreEqual(string.Empty,result);
+        }
+        
     }
 }
