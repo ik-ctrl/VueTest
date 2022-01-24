@@ -1,6 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.OpenApi.Extensions;
 using SimpleBackend.WebApi.Helpers.Extensions;
 using SimpleBackend.WebApi.Models.Enums;
 using SimpleBackend.WebApi.Models.Responses;
@@ -19,28 +17,27 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="errorCode">Код ошибки</param>
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="errorMessage">Дополнительное сообщение об ошибки</param>
-        /// <returns>Сгенерированный </returns>
+        /// <returns>Ответ об информации о единицах работы </returns>
         private JobInfoResponse GenerateResponse(string location, ErrorCodeType errorCode, Guid jobId, string errorMessage = null)
             => new JobInfoResponse()
             {
                 Location = location,
                 ErrorCode = errorCode,
-                ErrorMessage = string.IsNullOrEmpty(errorMessage) ? errorCode.GetAttribute<DisplayAttribute>().ToString() : errorMessage,
+                ErrorMessage = string.IsNullOrEmpty(errorMessage) ? errorCode.GetName(): errorMessage,
                 JobId = jobId
             };
 
         /// <summary>
-        /// Генерация успешного ответа на запрос
+        /// Генерация ответа при успешном запросе
         /// </summary>
         /// <param name="location">Информация о дальнейшем расположение</param>
         /// <param name="jobId">Идентификатор работы</param>
         /// <returns>Успешный результат выполнения</returns>
         public JobInfoResponse GenerateSuccessfulResponse(string location, Guid jobId)
             => GenerateResponse(location, ErrorCodeType.NoError, jobId);
-
-            //todo: заменить  "безуспешного"  на что то другое
+        
         /// <summary>
-        /// Генерация безуспешного ответа на запрос
+        /// Генерация ответа при неуспешном запросе
         /// </summary>
         /// <param name="errorCode">Код ошибки</param>
         /// <param name="errorMessage">Дополнительная информация об ошибке</param>

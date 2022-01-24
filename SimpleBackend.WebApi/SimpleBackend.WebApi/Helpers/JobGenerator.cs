@@ -44,7 +44,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список добавляемых задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateAddTodosJob(Guid jobId,TodoRequest request)
+        public Job GenerateAddTodosJob(Guid jobId,IEnumerable<TodoDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.AddTodos, request);
         
         /// <summary>
@@ -53,7 +53,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список идентификаторов ключей</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateRemoveTodosJob(Guid jobId,KeysRequest request)
+        public Job GenerateRemoveTodosJob(Guid jobId,IEnumerable<UiKeyDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.RemoveTodos, request);
         
         /// <summary>
@@ -62,16 +62,16 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список обновляемых задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateUpdateTodosJob(Guid jobId,TodoRequest request)
+        public Job GenerateUpdateTodosJob(Guid jobId,IEnumerable<TodoDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.UpdateTodos, request);
         
         /// <summary>
         /// Метод генерации единицы работы для добавления подзадач к задаче
         /// </summary>
         /// <param name="jobId">Идентификатор работы</param>
-        /// <param name="request">Список обновляемых задач</param>
+        /// <param name="request">Список обновляемых под задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateAddSubTodosJob(Guid jobId,TodoRequest request)
+        public Job GenerateAddSubTodosJob(Guid jobId,IEnumerable<SubTodoDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.AddSubTodos, request);
         
         /// <summary>
@@ -80,7 +80,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список обновляемых задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateUpdateSubTodosJob(Guid jobId,SubTodoRequest request)
+        public Job GenerateUpdateSubTodosJob(Guid jobId,IEnumerable<SubTodoDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.UpdateSubTodos, request);
         
         /// <summary>
@@ -89,7 +89,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список идентификаторов ключей</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateRemoveSubTodosJob(Guid jobId,KeysRequest request)
+        public Job GenerateRemoveSubTodosJob(Guid jobId,IEnumerable<UiKeyDTO> request)
             => GenerateJobUnit(jobId, string.Empty, JobType.RemoveSubTodos, request);
     }
 }

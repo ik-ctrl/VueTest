@@ -11,7 +11,7 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=cc9ffe5c_002Daa64_002D4676_002D91ba_002D2467471c7862/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetNoErrorDisplayName #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.HelpersTests.EnumsDisplayTest.GetEnumWithoutDisplayNameAttribute&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.HelpersTests.EnumsDisplayTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0415_0434_0438_043D_0438_0446_0430/@EntryIndexedValue">True</s:Boolean>
