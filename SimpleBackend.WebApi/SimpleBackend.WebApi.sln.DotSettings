@@ -33,6 +33,7 @@
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041F_0430_0440_043E_043B_044C/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041F_0435_0440_0435_0447_0438_0441_043B_0435_043D_0438_0435/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041F_043E_0440_0442/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041F_0443_0442_044C/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0420_0430_0441_0448_0438_0440_0435_043D_0438_0435/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0420_0430_0441_0448_0438_0440_0435_043D_0438_044F/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0420_0435_0437_0443_043B_044C_0442_0430_0442/@EntryIndexedValue">True</s:Boolean>
@@ -120,9 +121,11 @@
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0440_0430_0437_043C_0435_0440_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0440_0430_0437_043C_0435_0449_0435_043D_043D_043E_0439/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0440_0430_0441_043F_043E_043B_043E_0436_0435_043D_0438_0435/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0440_0430_0441_043F_043E_043B_043E_0436_0435_043D_0438_044F/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0440_0435_0437_0443_043B_044C_0442_0430_0442_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_0435_0440_0432_0435_0440_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_0435_0440_0432_0438_0441_0430/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_043B_0435_0434_0443_044E_0449_0435_0433_043E/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_043B_0435_0434_0443_044E_0449_0435_043C/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_043F_0438_0441_043A_0430/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0441_0442_0430_0442_0443_0441_0430/@EntryIndexedValue">True</s:Boolean>

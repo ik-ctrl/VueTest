@@ -13,13 +13,13 @@ namespace SimpleBackend.WebApi.Helpers
     public sealed class ResponseGenerator
     {
         /// <summary>
-        /// 
+        /// Генератор ответов
         /// </summary>
-        /// <param name="location"></param>
-        /// <param name="errorCode"></param>
-        /// <param name="jobId"></param>
-        /// <param name="errorMessage"></param>
-        /// <returns></returns>
+        /// <param name="location">Путь следующего расположения ответа</param>
+        /// <param name="errorCode">Код ошибки</param>
+        /// <param name="jobId">Идентификатор работы</param>
+        /// <param name="errorMessage">Дополнительное сообщение об ошибки</param>
+        /// <returns>Сгенерированный </returns>
         private JobInfoResponse GenerateResponse(string location, ErrorCodeType errorCode, Guid jobId, string errorMessage = null)
             => new JobInfoResponse()
             {
