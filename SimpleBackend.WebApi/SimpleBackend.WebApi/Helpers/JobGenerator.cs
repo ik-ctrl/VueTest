@@ -4,7 +4,6 @@ using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Models.DTO;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Worker;
-using SimpleBackend.WebApi.Requests;
 
 namespace SimpleBackend.WebApi.Helpers
 {

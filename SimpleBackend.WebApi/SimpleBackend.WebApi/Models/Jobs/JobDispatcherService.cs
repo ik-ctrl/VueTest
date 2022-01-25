@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using SimpleBackend.WebApi.Models.Enums;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Jobs.Worker;
 
@@ -50,36 +52,57 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// Асинхронное добавление задачи в список задач принятых в обработку
         /// </summary>
         /// <param name="newJob">Новая задача</param>
-        public async Task AddJobAsync(Job newJob)
-        {
-            await Task.Run(() =>
-            {
-                try
-                {
-                    _acceptingQueue.Enqueue(newJob);
-                }
-                catch (Exception e)
-                {
-                    _logger?.LogError($"Не удалось добавить задачу в список задач. Причина:{e.Message}");
-                    throw;
-                }
-            });
-        }
-
-
+        public async Task AddJobAsync(Job newJob) =>  await Task.Run(() => AddJob(newJob));
+        
         /// <summary>
-        /// Проверка статуса выполнения задачи
+        /// Проверка статус выполнения задачи
         /// </summary>
         /// <returns>Статус выполнения задачи</returns>
-        public bool CheckStatusJob()
+        public JobStatusType CheckStatusJob(Guid jobId)
         {
-            return true;
+            try
+            {
+                if (_acceptingQueue.CheckJob(jobId))
+                    return JobStatusType.Accepted;
+                else if (_resultQueue.CheckJobResult(jobId))
+                    return JobStatusType.Finished;
+                return JobStatusType.NotFound;
+            }
+            catch (Exception e)
+            {
+                _logger?.LogError($"Не удалось проверить состояние выполняемой работы. Причина:{e.Message}");
+                throw;
+            }
         }
+        
+        /// <summary>
+        /// Асинхронное проверка статус выполнения задачи
+        /// </summary>
+        /// <returns>Статус выполнения задачи</returns>
+        public async Task<JobStatusType> CheckStatusJobAsync(Guid jobId) => await Task.Run(() => CheckStatusJob(jobId));
 
         /// <summary>
         /// Результат выполнения задачи
         /// </summary>
         /// <returns>Результат выполнения Задачи</returns>
-        public object GetResultJob() => true;
+        public object GetResultJob(Guid jobId)
+        {
+            try
+            {
+                return !_resultQueue.CheckJobResult(jobId) ? null : _resultQueue.GetResult(jobId);
+            }
+            catch (Exception e)
+            {
+                _logger?.LogError($"Не удалось проверить состояние выполняемой работы. Причина:{e.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Асинхронный запрос результат  выполнения задачи
+        /// </summary>
+        /// <returns>Результат выполнения задачи</returns>
+        public async Task<object> GetResultJobAsync(Guid jobId) => await Task.Run(() => CheckStatusJob(jobId));
+ 
     }
 }
