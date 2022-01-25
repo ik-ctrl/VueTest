@@ -44,7 +44,6 @@ namespace SimpleBackend.WebApi.Controllers
         /// </summary>
         /// <returns> Список записанных задач</returns>
         [HttpGet]
-        [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTodos()
