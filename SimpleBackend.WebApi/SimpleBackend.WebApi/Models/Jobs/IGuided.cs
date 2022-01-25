@@ -10,7 +10,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <summary>
         /// Идентификатор объекта 
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid JobId { get; set; }
 
         /// <summary>
         /// Проверка на совпадение идентификаторов Guid

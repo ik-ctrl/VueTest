@@ -1,12 +1,11 @@
 ﻿using System;
-using Microsoft.AspNetCore.Components;
 
-namespace SimpleBackend.WebApi.Models.Responses
+namespace SimpleBackend.WebApi.DTO
 {
     /// <summary>
     /// Ответ с информацией о размещенной задаче работе
     /// </summary>
-    public class JobInfoResponse:AbsInformationResponse
+    public class JobInfoDTO:AbsInfoDTO
     {
         /// <summary>
         /// Идентификатор работы

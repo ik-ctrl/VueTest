@@ -102,7 +102,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// Асинхронный запрос результат  выполнения задачи
         /// </summary>
         /// <returns>Результат выполнения задачи</returns>
-        public async Task<object> GetResultJobAsync(Guid jobId) => await Task.Run(() => CheckStatusJob(jobId));
+        public async Task<object> GetResultJobAsync(Guid jobId) => await Task.Run(() => GetResultJob(jobId));
  
     }
 }

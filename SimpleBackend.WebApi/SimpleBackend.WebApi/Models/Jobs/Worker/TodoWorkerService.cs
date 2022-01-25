@@ -51,7 +51,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = todos
@@ -90,7 +90,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null
@@ -131,7 +131,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             }
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null,
@@ -171,7 +171,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null,
@@ -229,7 +229,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null,
@@ -270,7 +270,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null,
@@ -315,7 +315,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return new JobResult()
             {
-                Id = jobUnit.Id,
+                JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
                 ResultObject = null,

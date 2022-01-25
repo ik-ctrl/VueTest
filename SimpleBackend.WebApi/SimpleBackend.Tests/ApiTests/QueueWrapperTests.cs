@@ -26,7 +26,7 @@ namespace SimpleBackend.Tests.ApiTests
         {
             var job = new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -46,7 +46,7 @@ namespace SimpleBackend.Tests.ApiTests
             Assert.AreEqual(true, _queue.IsEmpty);
             var job = new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -62,7 +62,7 @@ namespace SimpleBackend.Tests.ApiTests
             var testJobId = Guid.NewGuid();
             _queue.Enqueue(new Job()
             {
-                Id = testJobId,
+                JobId = testJobId,
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -70,7 +70,7 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -78,20 +78,20 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
             });
             var job = _queue.Dequeue();
-            Assert.AreEqual(testJobId, job.Id);
+            Assert.AreEqual(testJobId, job.JobId);
         }
 
         [Test]
@@ -109,7 +109,7 @@ namespace SimpleBackend.Tests.ApiTests
             var testJobId = Guid.NewGuid();
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -117,7 +117,7 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -125,14 +125,14 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = testJobId,
+                JobId = testJobId,
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -158,7 +158,7 @@ namespace SimpleBackend.Tests.ApiTests
         {
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -166,7 +166,7 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
@@ -174,14 +174,14 @@ namespace SimpleBackend.Tests.ApiTests
 
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()
             });
             _queue.Enqueue(new Job()
             {
-                Id = Guid.NewGuid(),
+                JobId = Guid.NewGuid(),
                 Message = "new Job",
                 Type = JobType.AddTodos,
                 JobObject = new object()

@@ -47,8 +47,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
             if (result == null)
                 throw new ArgumentException(nameof(result));
 
-            if (!_resultDictionary.TryAdd(result.Id, result))
-                throw new Exception($"Не удалось добавить работу в список результатов:{result.Id}");
+            if (!_resultDictionary.TryAdd(result.JobId, result))
+                throw new Exception($"Не удалось добавить работу в список результатов:{result.JobId}");
         }
 
         /// <summary>

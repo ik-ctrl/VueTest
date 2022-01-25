@@ -23,7 +23,7 @@ namespace SimpleBackend.WebApi.Helpers
         private Job GenerateJobUnit(Guid jobId, string message, JobType type, object jobObject)
             => new Job()
             {
-                Id = jobId,
+                JobId = jobId,
                 Message = message ?? string.Empty,
                 Type = type,
                 JobObject = jobObject

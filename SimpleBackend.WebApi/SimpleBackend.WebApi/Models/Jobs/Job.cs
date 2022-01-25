@@ -11,7 +11,7 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// <summary>
         /// Идентификатор работы
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid JobId { get; set; }
         
         /// <summary>
         /// Тип выполняемой работы
@@ -32,13 +32,13 @@ namespace SimpleBackend.WebApi.Models.Jobs
         /// Вывод информации о работе
         /// </summary>
         /// <returns>Информации о работе</returns>
-        public override string ToString() => $"JobId:{Id}-JobType:{Type}";
+        public override string ToString() => $"JobId:{JobId}-JobType:{Type}";
         
         /// <summary>
         /// Проверка на совпадение идентификаторов Guid
         /// </summary>
         /// <param name="id">Проверяемый идентификатор</param>
         /// <returns>Результат проверки равенства идентификаторов</returns>
-        public bool CompareId(Guid id) => Id.Equals(id);
+        public bool CompareId(Guid id) => JobId.Equals(id);
     }
 }

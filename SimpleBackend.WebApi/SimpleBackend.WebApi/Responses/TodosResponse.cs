@@ -8,7 +8,7 @@ namespace SimpleBackend.WebApi.Models.Responses
     /// <summary>
     /// Ответ с набором задач
     /// </summary>
-    public class TodosResponse : AbsInformationResponse
+    public class TodosResponse : AbsInfoDTO
     {
         /// <summary>
         /// Инициализация с пустого экземпляра

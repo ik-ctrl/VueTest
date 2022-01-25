@@ -44,8 +44,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// </summary>
         /// <returns> Список записанных задач</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTodos()
         {
             try
@@ -68,8 +68,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddTodo(TodoDTO todo)
         {
             try
@@ -92,8 +92,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddTodos(IEnumerable<TodoDTO> todos)
         {
             try
@@ -116,8 +116,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateTodo(TodoDTO todo)
         {
             try
@@ -140,8 +140,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateTodos(IEnumerable<TodoDTO> todos)
         {
             try
@@ -164,8 +164,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpDelete]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteTodo(UiKeyDTO keyDTO)
         {
             try
@@ -188,8 +188,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpDelete]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteTodos(IEnumerable<UiKeyDTO> keysDTO)
         {
             try
@@ -212,8 +212,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddSubTodo(SubTodoDTO subTodo)
         {
             try
@@ -236,8 +236,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddSubTodos(IEnumerable<SubTodoDTO> subTodos)
         {
             try
@@ -260,8 +260,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateSubTodo(SubTodoDTO todo)
         {
             try
@@ -284,8 +284,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpPost]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateSubTodos(IEnumerable<SubTodoDTO> subTodos)
         {
             try
@@ -308,8 +308,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpDelete]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteSubTodo(UiKeyDTO keyDTO)
         {
             try
@@ -332,8 +332,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// <returns>Результат выполнения операции</returns>
         [HttpDelete]
         [Consumes(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(JobInfoResponse),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteSubTodos(IEnumerable<UiKeyDTO> keysDTO)
         {
             try
