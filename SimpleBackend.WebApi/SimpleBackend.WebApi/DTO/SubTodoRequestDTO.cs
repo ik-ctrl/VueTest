@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
-using SimpleBackend.WebApi.DTO;
 
-namespace SimpleBackend.WebApi.Requests
+namespace SimpleBackend.WebApi.DTO
 {
     /// <summary>
     /// Запрос с подзадача 
     /// </summary>
-    public sealed class SubTodoRequest
+    public sealed class SubTodoRequestDTO
     {
         /// <summary>
         /// Инициализация
         /// </summary>
-        public SubTodoRequest() => SubTodos = new List<SubTodoDTO>();
+        public SubTodoRequestDTO() => SubTodos = new List<SubTodoDTO>();
         
         /// <summary>
         /// Графический идентификатор задачки

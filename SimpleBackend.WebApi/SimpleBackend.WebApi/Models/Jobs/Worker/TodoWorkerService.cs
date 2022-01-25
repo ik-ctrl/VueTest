@@ -7,7 +7,6 @@ using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Models.Worker;
-using SimpleBackend.WebApi.Requests;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
 {
@@ -49,7 +48,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     todos = dbContext.Todos.Include(t => t.SubTodos).ToList();
                 }
             }
-
+            
             return new JobResult()
             {
                 Id = jobUnit.Id,
@@ -75,10 +74,10 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(AddTodo):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not TodoRequest request)
+            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
                 throw new Exception("AddTodoAsync::Не удалось преобразовать jobUnit.JobObject");
 
-            var todos = ConvertTodosDTOToTodos(request.Todos);
+            var todos = ConvertTodosDTOToTodos(todosDTO);
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
@@ -114,14 +113,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not KeysRequest request)
+            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
                 throw new Exception("RemoveTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var key in request.UiKeys)
+                    foreach (var key in uiKeys)
                     {
                         var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key));
                         if (todo != null)
@@ -154,14 +153,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not TodoRequest request)
+            if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
                 throw new Exception("UpdateTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    var todoList = request.Todos.ToList();
+                    var todoList = todosDTO.ToList();
                     foreach (var todo in todoList.Select(item => db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId))).Where(todo => todo != null))
                         db.Todos.Remove(todo);
                     var newTodos = ConvertTodosDTOToTodos(todoList);
@@ -197,7 +196,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.AddSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(AddSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not SubTodoRequest request)
+            if (jobUnit.JobObject is not SubTodoRequestDTO request)
                 throw new Exception("AddSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
@@ -253,7 +252,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.UpdateSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not SubTodoRequest request)
+            if (jobUnit.JobObject is not SubTodoRequestDTO request)
                 throw new Exception("UpdateSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
@@ -295,14 +294,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not KeysRequest request)
+            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
                 throw new Exception("RemoveSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    foreach (var key in request.UiKeys)
+                    foreach (var key in uiKeys)
                     {
                         var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key));
                         if (subTodo == null)
