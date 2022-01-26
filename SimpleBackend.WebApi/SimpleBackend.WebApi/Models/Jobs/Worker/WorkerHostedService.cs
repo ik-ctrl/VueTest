@@ -19,7 +19,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         private readonly AcceptedJobQueue _acceptedQueue;
         private readonly ResultJobQueue _resultQueue;
         private readonly TodoWorkerService _todoWorkerService;
-        private readonly IServiceScopeFactory _scopeFactory;
 
         /// <summary>
         /// Инициализация
