@@ -17,7 +17,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         /// Инициализация
         /// </summary>
         /// <param name="logger">Журнал логирования</param>
-        public ResultJobQueue(ILogger logger=null)
+        public ResultJobQueue(ILogger logger = null)
         {
             _logger = logger;
             _resultDictionary = new ConcurrentDictionary<Guid, JobResult>();
@@ -60,7 +60,8 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         {
             if (IsEmpty)
                 return null;
-            _resultDictionary.TryGetValue(jobId, out var result);
+            //todo: возможно стоит добавить кэш который по времени будет чистится
+            _resultDictionary.TryRemove(jobId, out var result);
             return result;
         }
 
