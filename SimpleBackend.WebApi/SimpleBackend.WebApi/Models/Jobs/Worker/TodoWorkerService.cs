@@ -48,13 +48,12 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     todos = dbContext.Todos.Include(t => t.SubTodos).ToList();
                 }
             }
-            
             return new JobResult()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
-                ResultObject = todos
+                ResultObject =  todos.Select(MapTodoToTodoDTO)
             };
         }
 
@@ -126,9 +125,11 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                         if (todo != null)
                             db.Todos.Remove(todo);
                     }
+
                     db.SaveChanges();
                 }
             }
+
             return new JobResult()
             {
                 JobId = jobUnit.JobId,
@@ -137,7 +138,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-        
+
         /// <summary>
         /// Обновление списка задач
         /// </summary>
@@ -222,6 +223,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                             };
                             db.SubTodos.Add(newSubTodo);
                         }
+
                         db.SaveChanges();
                     }
                 }
@@ -235,7 +237,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-        
+
         /// <summary>
         /// Обновление списка подзадач
         /// </summary>
@@ -259,10 +261,10 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
                 {
-                    var subTodos = db.SubTodos.Include(st=>st.Todo).Where(st=>st.Todo.UiKey.Equals(request.TodoUiKey));
+                    var subTodos = db.SubTodos.Include(st => st.Todo).Where(st => st.Todo.UiKey.Equals(request.TodoUiKey));
                     db.SubTodos.RemoveRange(subTodos);
                     var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
-                    var newSubTodos = MergeSubTodos(request.SubTodos,todo);
+                    var newSubTodos = MergeSubTodos(request.SubTodos, todo);
                     db.SubTodos.AddRange(newSubTodos);
                     db.SaveChanges();
                 }
@@ -340,7 +342,25 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return todos;
         }
-        
+
+        /// <summary>
+        /// Маппинг сущность на задачи на DTO задачи
+        /// </summary>
+        /// <param name="todo">Задача которую нужно размапить</param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        private TodoDTO MapTodoToTodoDTO(Todo todo) => todo != null 
+            ? new TodoDTO()
+            {
+                Confirm = todo.Confirm,
+                Title = todo.Title,
+                UiId = todo.UiKey,
+                SubTodos = todo.SubTodos != null
+                    ? todo.SubTodos.Select((item) => new SubTodoDTO() { Confirm = item.Confirm, Description = item.Description, UiId = item.UiKey })
+                    : new List<SubTodoDTO>(),
+            }
+            : null;
+
         /// <summary>
         /// Изъятие подзадач из DTO
         /// </summary>
@@ -358,13 +378,13 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 new SubTodo() { Confirm = subTodoDTO.Confirm, Description = subTodoDTO.Description, UiKey = subTodoDTO.UiId, Todo = todo }).ToList();
             todo.SubTodos = extractedSubTodos;
         }
-        
+
         /// <summary>
         /// Изъятие подзадач из DTO
         /// </summary>
         /// <param name="subTodos">Список подзадач</param>
         /// <param name="todo">Обновляемая задача задача</param>
-        private IEnumerable<SubTodo> MergeSubTodos(IEnumerable<SubTodoDTO> subTodos,Todo todo)
+        private IEnumerable<SubTodo> MergeSubTodos(IEnumerable<SubTodoDTO> subTodos, Todo todo)
         {
             var subTodoDtos = subTodos.ToList();
             if (!subTodoDtos.Any())
@@ -372,7 +392,5 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
 
             return subTodoDtos.Select(subTodo => new SubTodo() { Confirm = subTodo.Confirm, Description = subTodo.Description, UiKey = subTodo.UiId, Todo = todo }).ToList();
         }
-        
-        
     }
 }

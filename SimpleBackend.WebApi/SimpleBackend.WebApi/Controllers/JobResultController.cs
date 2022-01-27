@@ -54,7 +54,7 @@ namespace SimpleBackend.WebApi.Controllers
             }
             catch (Exception e)
             {
-                var errorMessage = $"Не удалось проверить состояние задачи. Причина:{e.Message}";
+                var errorMessage = $"Не удалось получить результат. Причина:{e.Message}";
                 _logger?.LogError(e,errorMessage);
                 return BadRequest(_responseGenerator.GenerateUnSuccessfulResponse(ErrorCodeType.UnknownError,errorMessage));
             }

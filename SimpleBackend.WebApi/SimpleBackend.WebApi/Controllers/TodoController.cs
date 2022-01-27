@@ -9,7 +9,6 @@ using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Helpers;
 using SimpleBackend.WebApi.Models.Enums;
 using SimpleBackend.WebApi.Models.Jobs;
-using SimpleBackend.WebApi.Models.Responses;
 
 namespace SimpleBackend.WebApi.Controllers
 {
