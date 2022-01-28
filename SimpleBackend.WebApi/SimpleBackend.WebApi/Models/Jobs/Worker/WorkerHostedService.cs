@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,16 +56,16 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         private void Main(object instanse)
         {
             _timer?.Change(Timeout.Infinite, 0);
-            Console.WriteLine("Worker is start");
-            Console.WriteLine($"AcceptedQueue is empty?:{_acceptedQueue.IsEmpty}");
-            Console.WriteLine($"ResultQueue is empty?:{_resultQueue.IsEmpty}");
+            Debug.WriteLine("Worker is start");
+            Debug.WriteLine($"AcceptedQueue is empty?:{_acceptedQueue.IsEmpty}");
+            Debug.WriteLine($"ResultQueue is empty?:{_resultQueue.IsEmpty}");
             if (_acceptedQueue.IsEmpty)
             {
                 _timer?.Change(1000, 1000);
                 return;
             }
             var job = _acceptedQueue.Dequeue();
-            Console.WriteLine($"Executed Job :{job}");
+            Debug.WriteLine($"Executed Job :{job}");
             try
             {
                 var result = job.Type switch
@@ -92,7 +93,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     Message = errorMessage
                 });
             }
-            Console.WriteLine("Worker is end");
+            Debug.WriteLine("Worker is end");
             _timer?.Change(1000, 1000);
         }
 

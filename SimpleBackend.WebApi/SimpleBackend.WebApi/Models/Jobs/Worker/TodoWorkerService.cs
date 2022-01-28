@@ -279,7 +279,6 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             };
         }
 
-
         /// <summary>
         /// Удаление списка подзадач
         /// </summary>
@@ -314,7 +313,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     db.SaveChanges();
                 }
             }
-
+            
             return new JobResult()
             {
                 JobId = jobUnit.JobId,
@@ -356,7 +355,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 Title = todo.Title,
                 UiId = todo.UiKey,
                 SubTodos = todo.SubTodos != null
-                    ? todo.SubTodos.Select((item) => new SubTodoDTO() { Confirm = item.Confirm, Description = item.Description, UiId = item.UiKey })
+                    ? todo.SubTodos.Select((item) => new SubTodoDTO() {TodoUiId = item.UiKey,Confirm = item.Confirm, Description = item.Description, UiId = item.UiKey })
                     : new List<SubTodoDTO>(),
             }
             : null;

@@ -218,7 +218,8 @@ namespace SimpleBackend.WebApi.Controllers
             try
             {
                 var id = Guid.NewGuid();
-                await _dispatcherService.AddJobAsync(_jobGenerator.GenerateAddSubTodosJob(id, new List<SubTodoDTO>() { subTodo }));
+                var request = new SubTodoRequestDTO() { TodoUiKey = subTodo.TodoUiId, SubTodos = new List<SubTodoDTO>(){subTodo}};
+                await _dispatcherService.AddJobAsync(_jobGenerator.GenerateAddSubTodosJob(id,request));
                 return Accepted(_responseGenerator.GenerateSuccessfulResponse("TEST Location", id));
             }
             catch (Exception e)
@@ -237,7 +238,7 @@ namespace SimpleBackend.WebApi.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> AddSubTodos(IEnumerable<SubTodoDTO> subTodos)
+        public async Task<IActionResult> AddSubTodos(SubTodoRequestDTO subTodos)
         {
             try
             {
@@ -261,12 +262,13 @@ namespace SimpleBackend.WebApi.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateSubTodo(SubTodoDTO todo)
+        public async Task<IActionResult> UpdateSubTodo(SubTodoDTO subTodo)
         {
             try
             {
                 var id = Guid.NewGuid();
-                await _dispatcherService.AddJobAsync(_jobGenerator.GenerateUpdateSubTodosJob(id, new List<SubTodoDTO>(){todo}));
+                var request = new SubTodoRequestDTO() { TodoUiKey = subTodo.TodoUiId, SubTodos = new List<SubTodoDTO>(){subTodo}};
+                await _dispatcherService.AddJobAsync(_jobGenerator.GenerateUpdateSubTodosJob(id, request));
                 return Accepted(_responseGenerator.GenerateSuccessfulResponse("TEST Location", id));
             }
             catch (Exception e)
@@ -285,7 +287,7 @@ namespace SimpleBackend.WebApi.Controllers
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(JobInfoDTO),StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateSubTodos(IEnumerable<SubTodoDTO> subTodos)
+        public async Task<IActionResult> UpdateSubTodos(SubTodoRequestDTO subTodos)
         {
             try
             {

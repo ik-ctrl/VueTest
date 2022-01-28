@@ -70,7 +70,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список обновляемых под задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateAddSubTodosJob(Guid jobId,IEnumerable<SubTodoDTO> request)
+        public Job GenerateAddSubTodosJob(Guid jobId,SubTodoRequestDTO request)
             => GenerateJobUnit(jobId, string.Empty, JobType.AddSubTodos, request);
         
         /// <summary>
@@ -79,7 +79,7 @@ namespace SimpleBackend.WebApi.Helpers
         /// <param name="jobId">Идентификатор работы</param>
         /// <param name="request">Список обновляемых задач</param>
         /// <returns>Единица работы</returns>
-        public Job GenerateUpdateSubTodosJob(Guid jobId,IEnumerable<SubTodoDTO> request)
+        public Job GenerateUpdateSubTodosJob(Guid jobId,SubTodoRequestDTO request)
             => GenerateJobUnit(jobId, string.Empty, JobType.UpdateSubTodos, request);
         
         /// <summary>

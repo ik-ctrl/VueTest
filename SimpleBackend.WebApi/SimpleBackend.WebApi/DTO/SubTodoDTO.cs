@@ -6,6 +6,11 @@
     public class SubTodoDTO
     {
         /// <summary>
+        /// Идентификатор выданный графической системой для главной задачи
+        /// </summary>
+        public int TodoUiId { get; set; }
+        
+        /// <summary>
         /// Индентификатор выданный графической системой
         /// </summary>
         public int  UiId { get; init; }
