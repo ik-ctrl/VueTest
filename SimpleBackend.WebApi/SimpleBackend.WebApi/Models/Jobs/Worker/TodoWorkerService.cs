@@ -112,7 +112,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
+            if (jobUnit.JobObject is not IEnumerable<UiKeyDTO> uiKeys)
                 throw new Exception("RemoveTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
@@ -121,7 +121,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 {
                     foreach (var key in uiKeys)
                     {
-                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key));
+                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
                         if (todo != null)
                             db.Todos.Remove(todo);
                     }
@@ -151,7 +151,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
 
-            if (jobUnit.Type != JobType.AddTodos)
+            if (jobUnit.Type != JobType.UpdateTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(UpdateTodos):{jobUnit.Type}");
 
             if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
@@ -296,7 +296,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.Type != JobType.RemoveSubTodos)
                 throw new Exception($"Некорректный тип работы для данного метода(RemoveSubTodos):{jobUnit.Type}");
 
-            if (jobUnit.JobObject is not IEnumerable<int> uiKeys)
+            if (jobUnit.JobObject is not IEnumerable<UiKeyDTO> uiKeys)
                 throw new Exception("RemoveSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
             using (var scope = _scopeFactory.CreateScope())
@@ -305,7 +305,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 {
                     foreach (var key in uiKeys)
                     {
-                        var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key));
+                        var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
                         if (subTodo == null)
                             continue;
                         db.SubTodos.Remove(subTodo);
