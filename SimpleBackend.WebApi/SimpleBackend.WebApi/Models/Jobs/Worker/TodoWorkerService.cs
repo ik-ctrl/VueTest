@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.DTO;
-using SimpleBackend.WebApi.Models.Worker;
+using SimpleBackend.WebApi.Models.Enums;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
 {
@@ -31,7 +31,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <returns>Результат выполнения операции</returns>
         /// <exception cref="ArgumentNullException">jobUnit==null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.GetAllTodos</exception>
-        public JobResult GetAllTodos(Job jobUnit)
+        public JobResultDTO GetAllTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -48,7 +48,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                     todos = dbContext.Todos.Include(t => t.SubTodos).ToList();
                 }
             }
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -65,7 +65,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <exception cref="ArgumentNullException">jobUnit == null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.AddTodo</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable (Todo) todos</exception>
-        public JobResult AddTodos(Job jobUnit)
+        public JobResultDTO AddTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -87,7 +87,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
 
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -104,7 +104,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <exception cref="ArgumentNullException">jobUnit == null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.RemoveTodos</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable(int) uiKeys</exception>
-        public JobResult RemoveTodos(Job jobUnit)
+        public JobResultDTO RemoveTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -130,7 +130,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
 
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -146,7 +146,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <returns>Результат выполнения операции</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="Exception"></exception>
-        public JobResult UpdateTodos(Job jobUnit)
+        public JobResultDTO UpdateTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -170,7 +170,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
 
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -189,7 +189,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <exception cref="Exception">jobUnit.Type != JobType.AddSubTodos</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable(SubTodo) subTodos</exception>
         /// <exception cref="Exception">подзадача с таким же графическим идентификатором уже присутствует</exception>
-        public JobResult AddSubTodos(Job jobUnit)
+        public JobResultDTO AddSubTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -229,7 +229,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
 
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -246,7 +246,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <exception cref="ArgumentNullException">jobUnit == null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.UpdateSubTodos</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable(SubTodo) subTodos</exception>
-        public JobResult UpdateSubTodos(Job jobUnit)
+        public JobResultDTO UpdateSubTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -270,7 +270,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
 
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
@@ -287,7 +287,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <exception cref="ArgumentNullException">jobUnit == null</exception>
         /// <exception cref="Exception">jobUnit.Type != JobType.RemoveSubTodos</exception>
         /// <exception cref="Exception">jobUnit.JobObject is not IEnumerable(int) uiKeys</exception>
-        public JobResult RemoveSubTodos(Job jobUnit)
+        public JobResultDTO RemoveSubTodos(Job jobUnit)
         {
             if (jobUnit == null)
                 throw new ArgumentNullException(nameof(jobUnit));
@@ -314,7 +314,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 }
             }
             
-            return new JobResult()
+            return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,

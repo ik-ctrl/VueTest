@@ -1,5 +1,5 @@
 ﻿using System;
-using SimpleBackend.WebApi.Models.Worker;
+using SimpleBackend.WebApi.Models.Enums;
 
 namespace SimpleBackend.WebApi.Models.Jobs
 {

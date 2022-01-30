@@ -1,11 +1,12 @@
 ﻿using System;
+using SimpleBackend.WebApi.Models.Jobs;
 
-namespace SimpleBackend.WebApi.Models.Jobs
+namespace SimpleBackend.WebApi.DTO
 {
     /// <summary>
     /// Результат выполнения работы
     /// </summary>
-    public class JobResult: IGuided
+    public class JobResultDTO: IGuided
     {
         /// <summary>
         /// Идентификатор работы

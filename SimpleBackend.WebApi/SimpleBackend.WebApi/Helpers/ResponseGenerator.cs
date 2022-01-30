@@ -2,7 +2,6 @@ using System;
 using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Helpers.Extensions;
 using SimpleBackend.WebApi.Models.Enums;
-using SimpleBackend.WebApi.Models.Responses;
 
 namespace SimpleBackend.WebApi.Helpers
 {

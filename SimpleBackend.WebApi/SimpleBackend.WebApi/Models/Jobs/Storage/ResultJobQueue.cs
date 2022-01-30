@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using SimpleBackend.WebApi.DTO;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {
@@ -10,7 +11,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
     /// </summary>
     public sealed class ResultJobQueue
     {
-        private readonly ConcurrentDictionary<Guid, JobResult> _resultDictionary;
+        private readonly ConcurrentDictionary<Guid, JobResultDTO> _resultDictionary;
         private readonly ILogger _logger;
 
         /// <summary>
@@ -20,7 +21,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         public ResultJobQueue(ILogger logger = null)
         {
             _logger = logger;
-            _resultDictionary = new ConcurrentDictionary<Guid, JobResult>();
+            _resultDictionary = new ConcurrentDictionary<Guid, JobResultDTO>();
         }
 
         /// <summary>
@@ -39,16 +40,16 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         /// <summary>
         /// Добавление нового результата 
         /// </summary>
-        /// <param name="result">Результат выполненой работы</param>
+        /// <param name="resultDTO">Результат выполненой работы</param>
         /// <exception cref="ArgumentException">result==null</exception>
         /// <exception cref="Exception">Не удалось добавить результат работы в очередь</exception>
-        public void AddResult(JobResult result)
+        public void AddResult(JobResultDTO resultDTO)
         {
-            if (result == null)
-                throw new ArgumentException(nameof(result));
+            if (resultDTO == null)
+                throw new ArgumentException(nameof(resultDTO));
 
-            if (!_resultDictionary.TryAdd(result.JobId, result))
-                throw new Exception($"Не удалось добавить работу в список результатов:{result.JobId}");
+            if (!_resultDictionary.TryAdd(resultDTO.JobId, resultDTO))
+                throw new Exception($"Не удалось добавить работу в список результатов:{resultDTO.JobId}");
         }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Storage
         /// </summary>
         /// <param name="jobId">Идентификатор работы</param>
         /// <returns>Результат выполнения работы</returns>
-        public JobResult GetResult(Guid jobId)
+        public JobResultDTO GetResult(Guid jobId)
         {
             if (IsEmpty)
                 return null;

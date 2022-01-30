@@ -41,8 +41,8 @@ namespace SimpleBackend.WebApi.Controllers
         /// </summary>
         /// <returns>Результат работы</returns>
         [HttpPost]
-        [ProducesResponseType(typeof(JobResult), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(JobResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(JobResultDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(JobResultDTO), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetResult(JobIdDTO jobId)
         {
             try

@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SimpleBackend.WebApi.DTO;
+using SimpleBackend.WebApi.Models.Enums;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
-using SimpleBackend.WebApi.Models.Worker;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
 {
@@ -85,7 +86,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             {
                 var errorMessage = $"Возникла ошибка при выполнении единицы работы:{job.JobId}.Причина:{e.Message}";
                 _logger?.LogError(errorMessage, e);
-                _resultQueue.AddResult(new JobResult
+                _resultQueue.AddResult(new JobResultDTO
                 {
                     JobId = job.JobId,
                     IsSuccess = false,

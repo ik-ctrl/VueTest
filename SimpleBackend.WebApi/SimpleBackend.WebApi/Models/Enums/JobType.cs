@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SimpleBackend.WebApi.Models.Worker
+namespace SimpleBackend.WebApi.Models.Enums
 {
     /// <summary>
     /// Тип работы
