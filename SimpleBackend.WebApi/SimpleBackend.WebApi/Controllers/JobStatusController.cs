@@ -47,12 +47,12 @@ namespace SimpleBackend.WebApi.Controllers
         {
             try
             {
-                var result = await _dispatcher.CheckStatusJobAsync(jobId.Jobid);
+                var result = await _dispatcher.CheckStatusJobAsync(jobId.JobId);
                 return result switch
                 {
-                    JobStatusType.Accepted => Ok(_responseGenerator.GenerateAcceptedJobStatusResponse("TestLocation", jobId.Jobid)),
-                    JobStatusType.Finished => Ok(_responseGenerator.GenerateFinishedJobStatusResponse("TestLocation", jobId.Jobid)),
-                    JobStatusType.NotFound => Ok(_responseGenerator.GenerateNotFoundJobStatusResponse("TestLocation", jobId.Jobid)),
+                    JobStatusType.Accepted => Ok(_responseGenerator.GenerateAcceptedJobStatusResponse("TestLocation", jobId.JobId)),
+                    JobStatusType.Finished => Ok(_responseGenerator.GenerateFinishedJobStatusResponse("TestLocation", jobId.JobId)),
+                    JobStatusType.NotFound => Ok(_responseGenerator.GenerateNotFoundJobStatusResponse("TestLocation", jobId.JobId)),
                     _ => throw new ArgumentOutOfRangeException($"Неизвестный статус работы {result}")
                 };
             }

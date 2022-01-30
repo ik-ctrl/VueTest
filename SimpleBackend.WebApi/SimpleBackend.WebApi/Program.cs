@@ -22,6 +22,7 @@ namespace SimpleBackend.WebApi
         {
             try
             {
+                //todo: добавить авто миграцию БД
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception e)

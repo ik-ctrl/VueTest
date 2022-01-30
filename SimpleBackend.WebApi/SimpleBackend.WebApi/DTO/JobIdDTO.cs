@@ -10,6 +10,6 @@ namespace SimpleBackend.WebApi.DTO
         /// <summary>
         /// Идентификатор работы
         /// </summary>
-        public Guid Jobid { get; set; }
+        public Guid JobId { get; set; }
     }
 }

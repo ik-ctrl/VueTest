@@ -47,7 +47,7 @@ namespace SimpleBackend.WebApi.Controllers
         {
             try
             {
-                var result = await _dispatcher.GetResultJobAsync(jobId.Jobid);
+                var result = await _dispatcher.GetResultJobAsync(jobId.JobId);
                 if (result == null)
                     throw new ArgumentException("неизвестный идентификатор работы");
                 return Ok(result);

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using Microsoft.Extensions.Logging;
+using SimpleBackend.WebApi.Interfaces;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Storage
 {

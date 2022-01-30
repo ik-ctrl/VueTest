@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleBackend.Database;
 using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.DTO;
+using SimpleBackend.WebApi.Helpers;
 using SimpleBackend.WebApi.Models.Enums;
 
 namespace SimpleBackend.WebApi.Models.Jobs.Worker
@@ -15,14 +15,16 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
     /// </summary>
     internal sealed class TodoWorkerService
     {
-        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly PostgresDbContextFactory _factory;
 
         /// <summary>
         /// Инициализация сервиса
-        /// </summary>
-        /// <param name="scopeFactory"></param>
-        public TodoWorkerService(IServiceScopeFactory scopeFactory)
-            => _scopeFactory = scopeFactory ?? throw new ArgumentNullException(nameof(scopeFactory), "Удалось инициализировать фабрику создания сервисов");
+        /// </summary>s
+        /// <param name="factory">Фабрика создания контекста БД</param>
+        /// <exception cref="ArgumentNullException">Отсутствуют данные для подключения</exception>
+        public TodoWorkerService(PostgresDbContextFactory factory)
+            => _factory = factory ?? throw new ArgumentNullException(nameof(factory), "Удалось инициализировать фабрику создания БД");
+
 
         /// <summary>
         /// Обработка запроса на получения всех задач
@@ -40,20 +42,17 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 throw new Exception($"Некорректный тип работы для данного метода(GetAllTodos):{jobUnit.Type}");
 
             IEnumerable<Todo> todos;
-
-            using (var scope = _scopeFactory.CreateScope())
+            using (var dbContext = _factory.CreateDbContext())
             {
-                using (var dbContext = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
-                {
-                    todos = dbContext.Todos.Include(t => t.SubTodos).ToList();
-                }
+                todos = dbContext.Todos.Include(t => t.SubTodos).ToList();
             }
+
             return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
                 IsSuccess = true,
                 Message = string.Empty,
-                ResultObject =  todos.Select(MapTodoToTodoDTO)
+                ResultObject = todos.Select(MapTodoToTodoDTO)
             };
         }
 
@@ -77,14 +76,10 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 throw new Exception("AddTodoAsync::Не удалось преобразовать jobUnit.JobObject");
 
             var todos = ConvertTodosDTOToTodos(todosDTO);
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
-                {
-                    db.AddRange(todos);
-                    db.SaveChanges();
-                    db.Dispose();
-                }
+                db.AddRange(todos);
+                db.SaveChanges();
             }
 
             return new JobResultDTO()
@@ -115,19 +110,16 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.JobObject is not IEnumerable<UiKeyDTO> uiKeys)
                 throw new Exception("RemoveTodos::Не удалось преобразовать jobUnit.JobObject");
 
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
+                foreach (var key in uiKeys)
                 {
-                    foreach (var key in uiKeys)
-                    {
-                        var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
-                        if (todo != null)
-                            db.Todos.Remove(todo);
-                    }
-
-                    db.SaveChanges();
+                    var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
+                    if (todo != null)
+                        db.Todos.Remove(todo);
                 }
+
+                db.SaveChanges();
             }
 
             return new JobResultDTO()
@@ -157,17 +149,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.JobObject is not IEnumerable<TodoDTO> todosDTO)
                 throw new Exception("UpdateTodos::Не удалось преобразовать jobUnit.JobObject");
 
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
-                {
-                    var todoList = todosDTO.ToList();
-                    foreach (var todo in todoList.Select(item => db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId))).Where(todo => todo != null))
-                        db.Todos.Remove(todo);
-                    var newTodos = ConvertTodosDTOToTodos(todoList);
-                    db.Todos.AddRange(newTodos);
-                    db.SaveChanges();
-                }
+                var todoList = todosDTO.ToList();
+                foreach (var todo in todoList.Select(item => db.Todos.FirstOrDefault(t => t.UiKey.Equals(item.UiId))).Where(todo => todo != null))
+                    db.Todos.Remove(todo);
+                var newTodos = ConvertTodosDTOToTodos(todoList);
+                db.Todos.AddRange(newTodos);
+                db.SaveChanges();
             }
 
             return new JobResultDTO()
@@ -200,32 +189,29 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.JobObject is not SubTodoRequestDTO request)
                 throw new Exception("AddSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
+                var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
+                if (todo != null)
                 {
-                    var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
-                    if (todo != null)
+                    foreach (var item in request.SubTodos)
                     {
-                        foreach (var item in request.SubTodos)
+                        var subTodo = todo.SubTodos.FirstOrDefault(i => i.UiKey.Equals(item.UiId));
+                        if (subTodo != null)
+                            continue;
+
+                        var newSubTodo = new SubTodo()
                         {
-                            var subTodo = todo.SubTodos.FirstOrDefault(i => i.UiKey.Equals(item.UiId));
-                            if (subTodo != null)
-                                continue;
-
-                            var newSubTodo = new SubTodo()
-                            {
-                                Confirm = item.Confirm,
-                                Description = item.Description,
-                                Todo = todo,
-                                UiKey = item.UiId,
-                                TodoId = todo.TodoId
-                            };
-                            db.SubTodos.Add(newSubTodo);
-                        }
-
-                        db.SaveChanges();
+                            Confirm = item.Confirm,
+                            Description = item.Description,
+                            Todo = todo,
+                            UiKey = item.UiId,
+                            TodoId = todo.TodoId
+                        };
+                        db.SubTodos.Add(newSubTodo);
                     }
+
+                    db.SaveChanges();
                 }
             }
 
@@ -257,17 +243,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.JobObject is not SubTodoRequestDTO request)
                 throw new Exception("UpdateSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
-                {
-                    var subTodos = db.SubTodos.Include(st => st.Todo).Where(st => st.Todo.UiKey.Equals(request.TodoUiKey));
-                    db.SubTodos.RemoveRange(subTodos);
-                    var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
-                    var newSubTodos = MergeSubTodos(request.SubTodos, todo);
-                    db.SubTodos.AddRange(newSubTodos);
-                    db.SaveChanges();
-                }
+                var subTodos = db.SubTodos.Include(st => st.Todo).Where(st => st.Todo.UiKey.Equals(request.TodoUiKey));
+                db.SubTodos.RemoveRange(subTodos);
+                var todo = db.Todos.FirstOrDefault(t => t.UiKey.Equals(request.TodoUiKey));
+                var newSubTodos = MergeSubTodos(request.SubTodos, todo);
+                db.SubTodos.AddRange(newSubTodos);
+                db.SaveChanges();
             }
 
             return new JobResultDTO()
@@ -298,22 +281,19 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
             if (jobUnit.JobObject is not IEnumerable<UiKeyDTO> uiKeys)
                 throw new Exception("RemoveSubTodos::Не удалось преобразовать jobUnit.JobObject");
 
-            using (var scope = _scopeFactory.CreateScope())
+            using (var db = _factory.CreateDbContext())
             {
-                using (var db = scope.ServiceProvider.GetRequiredService<PostgresDbContext>())
+                foreach (var key in uiKeys)
                 {
-                    foreach (var key in uiKeys)
-                    {
-                        var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
-                        if (subTodo == null)
-                            continue;
-                        db.SubTodos.Remove(subTodo);
-                    }
-
-                    db.SaveChanges();
+                    var subTodo = db.SubTodos.FirstOrDefault(t => t.UiKey.Equals(key.UiKeyItem));
+                    if (subTodo == null)
+                        continue;
+                    db.SubTodos.Remove(subTodo);
                 }
+
+                db.SaveChanges();
             }
-            
+
             return new JobResultDTO()
             {
                 JobId = jobUnit.JobId,
@@ -348,14 +328,14 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
         /// <param name="todo">Задача которую нужно размапить</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        private TodoDTO MapTodoToTodoDTO(Todo todo) => todo != null 
+        private TodoDTO MapTodoToTodoDTO(Todo todo) => todo != null
             ? new TodoDTO()
             {
                 Confirm = todo.Confirm,
                 Title = todo.Title,
                 UiId = todo.UiKey,
                 SubTodos = todo.SubTodos != null
-                    ? todo.SubTodos.Select((item) => new SubTodoDTO() {TodoUiId = item.UiKey,Confirm = item.Confirm, Description = item.Description, UiId = item.UiKey })
+                    ? todo.SubTodos.Select((item) => new SubTodoDTO() { TodoUiId = item.UiKey, Confirm = item.Confirm, Description = item.Description, UiId = item.UiKey })
                     : new List<SubTodoDTO>(),
             }
             : null;

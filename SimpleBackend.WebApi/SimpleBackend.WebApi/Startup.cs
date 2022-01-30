@@ -48,18 +48,13 @@ namespace SimpleBackend.WebApi
                 options.ReportApiVersions = true;
                 options.ApiVersionReader = new UrlSegmentApiVersionReader();
             });
-            services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-            });
+            services.AddVersionedApiExplorer(options => { options.GroupNameFormat = "'v'VVV"; });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
 
             var connection = ExtractConnectionString(Configuration);
-            services.AddDbContext<PostgresDbContext>(options =>
-            {
-                options.UseNpgsql(connection.GetConnectionString());
-            });
+            services.AddDbContext<PostgresDbContext>(options => { options.UseNpgsql(connection.GetConnectionString()); });
+            services.AddTransient<PostgresDbContextFactory>(provider => CreateDbContextFactory(connection));
             services
                 .AddHealthChecks()
                 .AddNpgSql(connection.GetConnectionString());
@@ -71,7 +66,6 @@ namespace SimpleBackend.WebApi
             services.AddTransient<ResponseGenerator>();
             services.AddTransient<JobDispatcherService>();
             services.AddHostedService<WorkerHostedService>();
-            
         }
 
         /// <summary>
@@ -95,7 +89,7 @@ namespace SimpleBackend.WebApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("ApiHealth");
+                endpoints.MapHealthChecks("hc");
             });
         }
 
@@ -110,6 +104,12 @@ namespace SimpleBackend.WebApi
             appConfig.GetSection(nameof(PostgresConnection)).Bind(connectionData);
             return connectionData;
         }
-        
+
+        /// <summary>
+        /// Создание фабрики контекста БД
+        /// </summary>
+        /// <param name="connection">Данные подключения БД</param>
+        /// <returns>Фабрика для создания контекста БД</returns>
+        private PostgresDbContextFactory CreateDbContextFactory(PostgresConnection connection) => new PostgresDbContextFactory(connection);
     }
 }

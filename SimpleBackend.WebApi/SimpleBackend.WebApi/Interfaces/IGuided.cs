@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleBackend.WebApi.Models.Jobs
+namespace SimpleBackend.WebApi.Interfaces
 {
     /// <summary>
     /// Интерфейс для сравнения GUID
