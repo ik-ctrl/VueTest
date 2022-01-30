@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleBackend.Database.Entities;
 using SimpleBackend.WebApi.DTO;
 using SimpleBackend.WebApi.Helpers;
@@ -167,8 +166,7 @@ namespace SimpleBackend.WebApi.Models.Jobs.Worker
                 ResultObject = null,
             };
         }
-
-        ///Скорее всего нужно будет удалить старые записи, затем добавить новые
+        
         /// <summary>
         /// Добавления подзадач
         /// </summary>

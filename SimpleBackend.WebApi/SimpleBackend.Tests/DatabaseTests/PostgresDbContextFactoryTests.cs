@@ -12,11 +12,11 @@ namespace SimpleBackend.Tests.DatabaseTests
     [TestFixture]
     public class PostgresDbContextFactoryTests
     {
-        private PostgresConnection _connection = new PostgresConnection()
+        private readonly PostgresConnection _connection = new PostgresConnection()
         {
             Username = "postgres",
             Password = "postgres",
-            DatabaseName = "SimpleDB",
+            DatabaseName = "TestDb1",
             Host = "127.0.0.1",
             Port = 5434
         };
