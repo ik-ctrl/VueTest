@@ -98,8 +98,6 @@ namespace SimpleBackend.Database
                 .Property(item => item.Password)
                 .IsRequired();
             
-
-
             modelBuilder.Entity<User>()
                 .HasOne(item => item.Role)
                 .WithMany(item => item.Users)
