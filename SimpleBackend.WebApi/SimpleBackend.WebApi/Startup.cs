@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using SimpleBackend.Database;
 using SimpleBackend.WebApi.Helpers;
+using SimpleBackend.WebApi.Helpers.Extensions;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Jobs.Worker;
@@ -51,7 +52,6 @@ namespace SimpleBackend.WebApi
             services.AddVersionedApiExplorer(options => { options.GroupNameFormat = "'v'VVV"; });
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen();
-
             var connection = ExtractConnectionString(Configuration);
             services.AddDbContext<PostgresDbContext>(options => { options.UseNpgsql(connection.GetConnectionString()); });
             services.AddTransient<PostgresDbContextFactory>(provider => CreateDbContextFactory(connection));
@@ -73,19 +73,20 @@ namespace SimpleBackend.WebApi
         /// </summary>
         /// <param name="app">Конфигуратор приложения</param>
         /// <param name="env">Окружение приложения</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="factory"> Фабрика контекста бд</param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,PostgresDbContextFactory factory)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseStaticFiles();
             app.UseDefaultFiles();
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SimpleBackend.WebApi v1"));
+            app.ApplyMigration(factory);
+            app.ConfigureSwagger("/swagger/v1/swagger.json", "SimpleBackend.WebApi v1");
             app.UseRouting();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
