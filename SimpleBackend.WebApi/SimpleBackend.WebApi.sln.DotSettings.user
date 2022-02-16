@@ -1,0 +1,22 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=450dc3d7_002D8de8_002D4a87_002Db1bb_002D47c91be3b5cd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateDbContext_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.DatabaseTests.PostgresDbContextFactoryTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.GetAllTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.AddTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.RemoveTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.UpdateTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.AddSubTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.RemoveSubTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.UpdateSubTodos_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0415_0434_0438_043D_0438_0446_0430/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_041E_0431_0440_0430_0431_043E_0442_043A_0430/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_0432_0441_0435_0445/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_043D_043E_0432_044B_0445/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=_043F_043E_043B_0443_0447_0435_043D_0438_044F/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
