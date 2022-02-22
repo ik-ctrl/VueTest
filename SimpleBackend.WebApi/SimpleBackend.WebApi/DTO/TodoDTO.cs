@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SimpleBackend.WebApi.Models.DTO;
 
 namespace SimpleBackend.WebApi.DTO
 {

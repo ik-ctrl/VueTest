@@ -12,7 +12,7 @@ namespace SimpleBackend.WebApi.Options
     /// <summary>
     /// Конфигуратор опций Swagger
     /// </summary>
-    internal class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+    internal sealed class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
     {
         private readonly IApiVersionDescriptionProvider _provider;
 

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using SimpleBackend.Database;
 using SimpleBackend.WebApi.Helpers;
 using SimpleBackend.WebApi.Helpers.Extensions;
+using SimpleBackend.WebApi.Models;
 using SimpleBackend.WebApi.Models.Jobs;
 using SimpleBackend.WebApi.Models.Jobs.Storage;
 using SimpleBackend.WebApi.Models.Jobs.Worker;
@@ -66,6 +67,8 @@ namespace SimpleBackend.WebApi
             services.AddTransient<ResponseGenerator>();
             services.AddTransient<JobDispatcherService>();
             services.AddHostedService<WorkerHostedService>();
+            services.AddTransient(provider =>CreateTokenGenerator(Configuration));
+            services.AddTransient<AuthService>();
         }
 
         /// <summary>
@@ -112,5 +115,17 @@ namespace SimpleBackend.WebApi
         /// <param name="connection">Данные подключения БД</param>
         /// <returns>Фабрика для создания контекста БД</returns>
         private PostgresDbContextFactory CreateDbContextFactory(PostgresConnection connection) => new PostgresDbContextFactory(connection);
+
+        /// <summary>
+        /// Создание генератора токенов
+        /// </summary>
+        /// <param name="config">Конфигурация приложения</param>
+        /// <returns>Сконфигурированный конфигуратор токенов</returns>
+        private TokenGenerator CreateTokenGenerator(IConfiguration config)
+        {
+            var options = new AuthOptions();
+            config.GetSection(nameof(AuthOptions)).Bind(options);
+            return new TokenGenerator(options);
+        }
     }
 }
