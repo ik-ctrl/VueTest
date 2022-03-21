@@ -88,8 +88,9 @@ namespace SimpleBackend.WebApi
             app.UseDefaultFiles();
             app.ApplyMigration(factory);
             app.ConfigureSwagger("/swagger/v1/swagger.json", "SimpleBackend.WebApi v1");
+            app.UseCors();
+            app.UseMiddleware<JWTMiddleware>();
             app.UseRouting();
-            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
