@@ -139,5 +139,27 @@ namespace SimpleBackend.WebApi.Models.Tokens
 
             return validationResult && tryCounter < 5;
         }
+        
+        public void DeleteToken(int userId)
+        {
+            
+        }
+        
+
+        private bool SimpleDeleteToken(Dictionary<int, TokenPair> storage, int userId)
+        {
+            if (!storage.ContainsKey(userId))
+                return true;
+            
+            
+
+            return false;
+        }
+        
+        
+        
+        
+        
+        
     }
 }
