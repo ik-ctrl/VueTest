@@ -1,6 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=450dc3d7_002D8de8_002D4a87_002Db1bb_002D47c91be3b5cd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="CreateDbContext_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=450dc3d7_002D8de8_002D4a87_002Db1bb_002D47c91be3b5cd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="CreateDbContext_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.DatabaseTests.PostgresDbContextFactoryTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.GetAllTodos_Test&lt;/TestId&gt;&#xD;
@@ -11,6 +11,13 @@
     &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.RemoveSubTodos_Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest.UpdateSubTodos_Test&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TodoWorkerServiceTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TokensStorageServiceTests.SimpleValidateToken_Test&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TokensStorageServiceTests.ThreadSafeValidateToken_Test&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8a27cc8e_002D8ae1_002D448b_002D90d3_002D45034a9b238c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="ThreadSafeValidateToken_Test" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::DB937A8A-ED7A-42B8-91FF-15853E95DD57::net5.0::SimpleBackend.Tests.ApiTests.TokensStorageServiceTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	

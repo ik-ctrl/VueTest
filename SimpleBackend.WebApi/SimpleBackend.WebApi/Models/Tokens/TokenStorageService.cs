@@ -2,16 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 
 namespace SimpleBackend.WebApi.Models.Tokens
 {
     /// <summary>
     /// Хранилище токенов
     /// </summary>
-    public sealed class TokensStorageService
+    public sealed class TokenStorageService
     {
         private readonly Dictionary<int, TokenPair> _storage;
-        private readonly ILogger<TokensStorageService> _logger;
+        private readonly ILogger<TokenStorageService> _logger;
         private readonly object _lockObject;
         private readonly bool _isThreadSafe;
 
@@ -20,7 +21,7 @@ namespace SimpleBackend.WebApi.Models.Tokens
         /// </summary>
         /// <param name="threadSafe">Флаг безопасности для потоков</param>
         /// <param name="logger">Журнал логирования ошибок</param>
-        public TokensStorageService(bool threadSafe = false, ILogger<TokensStorageService> logger = null)
+        public TokenStorageService(bool threadSafe = false, ILogger<TokenStorageService> logger = null)
         {
             _storage = new Dictionary<int, TokenPair>();
             _logger = logger;
@@ -45,7 +46,8 @@ namespace SimpleBackend.WebApi.Models.Tokens
             var result = _isThreadSafe
                 ? ThreadSafeAddToken(_storage, userId, tokenData)
                 : SimpleAddToken(_storage, userId, tokenData);
-            if (result) return;
+            if (result)
+                return;
             var exception = new Exception("Не удалось добавить данные токена");
             _logger?.LogError(exception, "Не удалось добавить данные токена");
             throw exception;
@@ -76,16 +78,17 @@ namespace SimpleBackend.WebApi.Models.Tokens
             var tryCounter = 0;
             do
             {
-                if (Monitor.TryEnter(_lockObject, 500))
+                if (Monitor.TryEnter(_lockObject, 10))
                 {
                     SimpleAddToken(storage, userId, tokenData);
+                    Monitor.Exit(_lockObject);
                     break;
                 }
 
                 tryCounter++;
-            } while (tryCounter < 5);
+            } while (tryCounter < 15);
 
-            return tryCounter < 5;
+            return tryCounter < 15;
         }
 
         /// <summary>
@@ -128,38 +131,70 @@ namespace SimpleBackend.WebApi.Models.Tokens
             var validationResult = false;
             do
             {
-                if (Monitor.TryEnter(_lockObject, 500))
+                if (Monitor.TryEnter(_lockObject, 10))
                 {
                     validationResult = SimpleValidateToken(storage, userId, token);
+                    Monitor.Exit(_lockObject);
                     break;
                 }
-
                 tryCounter++;
-            } while (tryCounter < 5);
+            } while (tryCounter < 15);
 
-            return validationResult && tryCounter < 5;
+            return validationResult && tryCounter < 15;
         }
-        
+
+        /// <summary>
+        /// Удаление токена из списка
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <exception cref="Exception">Не удалось удалить токен пользователя</exception>
         public void DeleteToken(int userId)
         {
-            
+            var result = _isThreadSafe
+                ? ThreadSafeDeleteToken(_storage, userId)
+                : SimpleDeleteToken(_storage, userId);
+            if (result) return;
+            var exception = new Exception($"Не удалось удалить токен пользователя {userId}");
+            _logger?.LogError(exception, "Не удалось удалить токен пользователя");
+            throw exception;
         }
-        
 
+        /// <summary>
+        /// Простое удаление токена
+        /// </summary>
+        /// <param name="storage">Хранилище токенов</param>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns>Результат выполнения операции</returns>
         private bool SimpleDeleteToken(Dictionary<int, TokenPair> storage, int userId)
         {
             if (!storage.ContainsKey(userId))
                 return true;
-            
-            
-
-            return false;
+            storage.Remove(userId);
+            return true;
         }
-        
-        
-        
-        
-        
-        
+
+        /// <summary>
+        /// Потокобезопаное удаление токена
+        /// </summary>
+        /// <param name="storage">Хранилище токенов</param>
+        /// <param name="userId">Идентификатор пользователя</param>
+        /// <returns>Результат выполнения операции</returns>
+        private bool ThreadSafeDeleteToken(Dictionary<int, TokenPair> storage, int userId)
+        {
+            var tryCounter = 0;
+            do
+            {
+                if (Monitor.TryEnter(_lockObject, 10))
+                {
+                    SimpleDeleteToken(storage, userId);
+                    Monitor.Exit(_lockObject);
+                    break;
+                }
+
+                tryCounter++;
+            } while (tryCounter < 15);
+
+            return tryCounter < 15;
+        }
     }
 }
